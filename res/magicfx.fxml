@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane id="globalBorderPane" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+       <GridPane id="globalGridPane" prefHeight="1.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+               <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="1.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="ALWAYS" />
+               <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="ALWAYS" />
+           </rowConstraints>
+           <children>
+               <GridPane id="topGridPane" hgap="1.0" prefHeight="1.0" vgap="1.0" BorderPane.alignment="CENTER" GridPane.rowIndex="0">
+                   <columnConstraints>
+                       <ColumnConstraints hgrow="ALWAYS" maxWidth="96.0" minWidth="64.0" prefWidth="128.0" />
+                       <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="1024.0" />
+                       <ColumnConstraints hgrow="ALWAYS" maxWidth="96.0" minWidth="64.0" prefWidth="128.0" />
+                   </columnConstraints>
+                   <rowConstraints>
+                       <RowConstraints maxHeight="96.0" minHeight="64.0" prefHeight="128.0" vgrow="ALWAYS" />
+                       <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="ALWAYS" />
+                   </rowConstraints>
+               </GridPane>
+               <GridPane id="bottomGridPane" hgap="2.0" prefHeight="1.0" vgap="2.0" BorderPane.alignment="CENTER" GridPane.rowIndex="1">
+                   <columnConstraints>
+                       <ColumnConstraints hgrow="ALWAYS" maxWidth="96.0" minWidth="64.0" prefWidth="128.0" />
+                       <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="1024.0" />
+                       <ColumnConstraints hgrow="ALWAYS" maxWidth="96.0" minWidth="64.0" prefWidth="128.0" />
+                   </columnConstraints>
+                   <rowConstraints>
+                       <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="ALWAYS" />
+                       <RowConstraints maxHeight="96.0" minHeight="64.0" prefHeight="128.0" vgrow="ALWAYS" />
+                   </rowConstraints>
+               <children>
+                  <Pane id="mainBattlefieldPane" GridPane.columnIndex="1" />
+                  <Pane id="mainExilePane" GridPane.columnIndex="2" />
+                  <Pane id="mainHandPane" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Pane id="mainDeckGravePane" prefHeight="200.0" prefWidth="200.0" />
+                  <Pane id="mainPlayerPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <Pane id="mainCommanderPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               </children>
+               </GridPane>
+           </children>
+       </GridPane>
+   </center>
+</BorderPane>
