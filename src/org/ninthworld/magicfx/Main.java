@@ -43,7 +43,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/magicfx.fxml"));
         primaryStage.setTitle("MagicFX");
-        primaryStage.setScene(new Scene(root, 1280, 680));
+        primaryStage.setScene(new Scene(root, 1280, 800));
         primaryStage.show();
         scene = primaryStage.getScene();
 

@@ -1,5 +1,6 @@
 package org.ninthworld.magicfx;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
@@ -15,6 +16,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by NinthWorld on 4/8/2016.
@@ -26,7 +28,11 @@ public class CardPane extends BorderPane {
     private boolean showCost, selected, dragged;
     private CardEntity cardEntity;
     private ResourceManager resourceManager;
+
+    private Pane centerPane;
     private ImageView cardImageView;
+    private TextFlow cardNameTextFlow, cardPTTextFlow;
+    private HBox manaCostHBox;
 
     public CardPane(CardEntity cardEntity, ResourceManager resourceManager){
         super();
@@ -34,7 +40,12 @@ public class CardPane extends BorderPane {
         this.showCost = true;
         this.cardEntity = cardEntity;
         this.resourceManager = resourceManager;
+
+        this.centerPane = new Pane();
         this.cardImageView = new ImageView();
+        this.cardNameTextFlow = new TextFlow();
+        this.cardPTTextFlow = new TextFlow();
+        this.manaCostHBox = new HBox();
     }
 
     public boolean isShowCost() {
@@ -75,9 +86,6 @@ public class CardPane extends BorderPane {
     }
 
     private void applyCard(){
-
-        ((Pane) this.getCenter()).getChildren().clear();
-        ((Pane) this.getCenter()).getChildren().add(cardImageView);
 
         if(!selected) {
             this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(2))));
@@ -126,71 +134,110 @@ public class CardPane extends BorderPane {
             finalName += part + " ";
         }
 
-        Pane pane = (Pane) this.getCenter();
-        Font font = new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080));
+        Font font1 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080));
+        Font font2 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.14*(resourceManager.getScene().getHeight()/1080));
 
         DropShadow ds = new DropShadow();
-        ds.setColor(Color.rgb(0, 0, 0, 0.6));
+        ds.setColor(Color.rgb(0, 0, 0, 0.7));
         ds.setRadius(1.75);
         ds.setSpread(1);
 
-        TextFlow cardNameFlow = new TextFlow();
-        cardNameFlow.setTextAlignment(TextAlignment.CENTER);
-        cardNameFlow.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
+        cardNameTextFlow.setTextAlignment(TextAlignment.CENTER);
+        cardNameTextFlow.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
         Text cardName = new Text();
-        cardName.setFont(font);
+        cardName.setFont(font1);
         cardName.setFill(Color.WHITE);
         cardName.setEffect(ds);
         cardName.setText(finalName);
-        cardNameFlow.getChildren().add(cardName);
-        pane.getChildren().add(cardNameFlow);
+        cardNameTextFlow.getChildren().setAll(cardName);
 
-        TextFlow cardPTFlow = new TextFlow();
         Text cardPT = new Text();
-        HBox manaCost = new HBox();
-        if(!showCost) {
-            cardPTFlow.setTextAlignment(TextAlignment.RIGHT);
-            cardPTFlow.setPrefWidth(CardPane.cardHeightAnchor * .7 * (resourceManager.getScene().getHeight() / 1080));
-            cardPTFlow.setTranslateY(CardPane.cardHeightAnchor * .8 * (resourceManager.getScene().getHeight() / 1080));
-            cardPT.setFont(font);
+        if(!cardEntity.getCardData().getPower().equals("")) {
+            cardPTTextFlow.setTextAlignment(TextAlignment.RIGHT);
+            cardPTTextFlow.setPrefWidth(CardPane.cardHeightAnchor * .7 * (resourceManager.getScene().getHeight() / 1080));
+            cardPTTextFlow.setTranslateY(CardPane.cardHeightAnchor * .8 * (resourceManager.getScene().getHeight() / 1080));
+            cardPT.setFont(font2);
             cardPT.setFill(Color.WHITE);
             cardPT.setEffect(ds);
             cardPT.setText(cardEntity.getCardData().getPower() + "/" + cardEntity.getCardData().getToughness());
-            cardPTFlow.getChildren().add(cardPT);
-            pane.getChildren().add(cardPTFlow);
-        }else{
-            for(String symbol : cardEntity.getCardData().getManaSymbols()){
+            cardPTTextFlow.getChildren().setAll(cardPT);
+        }
+
+        ArrayList<ImageView> manaIcons = new ArrayList<>();
+        if(showCost) {
+            for (String symbol : cardEntity.getCardData().getManaSymbols()) {
                 ImageView manaImgView = new ImageView();
                 Image manaImg = null;
-                if(resourceManager.getSymbols().containsKey(symbol)){
+                if (resourceManager.getSymbols().containsKey(symbol)) {
                     manaImg = resourceManager.getSymbols().get(symbol);
-                }else{
+                } else {
                     manaImg = resourceManager.getSymbols().get("CHAOS");
                 }
                 manaImgView.setImage(manaImg);
-                manaCost.getChildren().add(manaImgView);
+                manaImgView.setPreserveRatio(true);
+                manaIcons.add(manaImgView);
             }
-            pane.getChildren().add(manaCost);
+
+            if (manaIcons.size() > 0) {
+                double iconWidth = manaIcons.get(0).getImage().getWidth();
+                double cardWidth = CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080);
+                double allIconWidth = manaIcons.size()*iconWidth;
+
+                if(allIconWidth > cardWidth){
+                    iconWidth -= (allIconWidth - cardWidth)/manaIcons.size();
+                    allIconWidth = cardWidth;
+                }
+
+                manaCostHBox.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
+                manaCostHBox.setTranslateX(cardWidth/2 - allIconWidth/2);
+                for (ImageView icon : manaIcons) {
+                    icon.setFitWidth(iconWidth);
+                }
+                manaCostHBox.getChildren().setAll(manaIcons);
+
+                manaCostHBox.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, .7), new CornerRadii(8), new Insets(-2))));
+            }
+            manaCostHBox.setVisible(true);
+        }else{
+            manaCostHBox.setVisible(false);
         }
 
         resourceManager.getScene().heightProperty().addListener(e -> {
-            cardImageView.setFitHeight(CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
-            this.setMinHeight(cardImageView.getFitHeight());
-            cardNameFlow.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
-            cardName.setFont(new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080)));
+            double cardHeight = CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080);
+            double cardWidth = cardHeight*.7;
 
-            cardPTFlow.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
-            cardPTFlow.setTranslateY(CardPane.cardHeightAnchor * .8 * (resourceManager.getScene().getHeight() / 1080));
-            cardPT.setFont(new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080)));
+            cardImageView.setFitHeight(cardHeight);
+            this.setMinHeight(cardImageView.getFitHeight());
+            cardNameTextFlow.setPrefWidth(cardWidth);
+            cardName.setFont(new Font("Lucida Sans", cardHeight*.12));
+
+            cardPTTextFlow.setPrefWidth(cardWidth);
+            cardPTTextFlow.setTranslateY(cardHeight*.8);
+            cardPT.setFont(new Font("Lucida Sans", cardHeight*.14));
+
+            if (manaIcons.size() > 0) {
+                double iconWidth = manaIcons.get(0).getImage().getWidth();
+                double allIconWidth = manaIcons.size()*iconWidth;
+
+                if(allIconWidth > cardWidth){
+                    iconWidth -= (allIconWidth - cardWidth)/manaIcons.size();
+                    allIconWidth = cardWidth;
+                }
+
+                manaCostHBox.setTranslateY(cardHeight*.5);
+                manaCostHBox.setTranslateX(cardWidth/2 - allIconWidth/2);
+                for (ImageView icon : manaIcons) {
+                    icon.setFitWidth(iconWidth);
+                }
+                manaCostHBox.getChildren().setAll(manaIcons);
+            }
         });
     }
 
     public static CardPane createCardPane(CardEntity entity, ResourceManager resourceManager) {
         CardPane cardPane = new CardPane(entity, resourceManager);
-        Pane pane = new Pane();
-        cardPane.cardImageView = new ImageView();
-        pane.getChildren().add(cardPane.cardImageView);
-        cardPane.setCenter(pane);
+        cardPane.setCenter(cardPane.centerPane);
+        cardPane.centerPane.getChildren().setAll(cardPane.cardImageView, cardPane.cardNameTextFlow, cardPane.cardPTTextFlow, cardPane.manaCostHBox);
         cardPane.applyCard();
         return cardPane;
     }

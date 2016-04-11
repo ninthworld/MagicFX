@@ -289,7 +289,11 @@ public class PlayerArea {
         double parentWidth = (battlefieldPane.getWidth() > 0 ? battlefieldPane.getWidth() : battlefieldPane.getPrefWidth());
         double parentHeight = (battlefieldPane.getHeight() > 0 ? battlefieldPane.getHeight() : battlefieldPane.getPrefHeight());
         ArrayList<Node> bNodes = new ArrayList<>();
-        battlefieldPane.getChildren().forEach(bNodes::add);
+        battlefieldPane.getChildren().forEach(child -> {
+            if(child instanceof CardPane){
+                bNodes.add(child);
+            }
+        });
         Collections.sort(bNodes, (n1, n2) -> {
             if(n1.getTranslateY() < n2.getTranslateY() || n1.getTranslateX() < n2.getTranslateX()){
                 return -1;
@@ -303,7 +307,11 @@ public class PlayerArea {
         double parentWidth = (handPane.getWidth() > 0 ? handPane.getWidth() : handPane.getPrefWidth());
         double parentHeight = (handPane.getHeight() > 0 ? handPane.getHeight() : handPane.getPrefHeight());
         ArrayList<Node> hNodes = new ArrayList<>();
-        handPane.getChildren().forEach(hNodes::add);
+        handPane.getChildren().forEach(child -> {
+            if(child instanceof CardPane){
+                hNodes.add(child);
+            }
+        });
         Collections.sort(hNodes, (n1, n2) -> {
             if(n1.getTranslateX() < n2.getTranslateX()){
                 return -1;
@@ -326,7 +334,11 @@ public class PlayerArea {
         double parentWidth = (exilePane.getWidth() > 0 ? exilePane.getWidth() : exilePane.getPrefWidth());
         double parentHeight = (exilePane.getHeight() > 0 ? exilePane.getHeight() : exilePane.getPrefHeight());
         ArrayList<Node> eNodes = new ArrayList<>();
-        exilePane.getChildren().forEach(eNodes::add);
+        exilePane.getChildren().forEach(child -> {
+            if(child instanceof CardPane){
+                eNodes.add(child);
+            }
+        });
         Collections.sort(eNodes, (n1, n2) -> {
             if(n1.getTranslateY() < n2.getTranslateY()){
                 return -1;
@@ -344,31 +356,46 @@ public class PlayerArea {
     private void updateGraveyardPane(){
         double parentWidth = (graveyardPane.getWidth() > 0 ? graveyardPane.getWidth() : graveyardPane.getPrefWidth());
         double parentHeight = (graveyardPane.getHeight() > 0 ? graveyardPane.getHeight() : graveyardPane.getPrefHeight());
-        graveyardPane.getChildren().forEach(node -> {
-            Bounds nodeBounds = node.getBoundsInParent();
-            node.setTranslateX(parentWidth/2 - nodeBounds.getWidth()/2);
-            node.setTranslateY(parentHeight/2 - nodeBounds.getHeight()/2);
+        ArrayList<Node> gNodes = new ArrayList<>();
+        graveyardPane.getChildren().forEach(child -> {
+            if(child instanceof CardPane){
+                gNodes.add(child);
+                Bounds nodeBounds = child.getBoundsInParent();
+                child.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
+                child.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
+            }
         });
+        graveyardPane.getChildren().setAll(gNodes);
     }
 
     private void updateDeckPane(){
         double parentWidth = (deckPane.getWidth() > 0 ? deckPane.getWidth() : deckPane.getPrefWidth());
         double parentHeight = (deckPane.getHeight() > 0 ? deckPane.getHeight() : deckPane.getPrefHeight());
-        deckPane.getChildren().forEach(node -> {
-            Bounds nodeBounds = node.getBoundsInParent();
-            node.setTranslateX(parentWidth/2 - nodeBounds.getWidth()/2);
-            node.setTranslateY(parentHeight/2 - nodeBounds.getHeight()/2);
+        ArrayList<Node> dNodes = new ArrayList<>();
+        deckPane.getChildren().forEach(child -> {
+            if(child instanceof CardPane){
+                dNodes.add(child);
+                Bounds nodeBounds = child.getBoundsInParent();
+                child.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
+                child.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
+            }
         });
+        deckPane.getChildren().setAll(dNodes);
     }
 
     private void updateCommanderPane(){
         double parentWidth = (commanderPane.getWidth() > 0 ? commanderPane.getWidth() : commanderPane.getPrefWidth());
         double parentHeight = (commanderPane.getHeight() > 0 ? commanderPane.getHeight() : commanderPane.getPrefHeight());
-        commanderPane.getChildren().forEach(node -> {
-            Bounds nodeBounds = node.getBoundsInParent();
-            node.setTranslateX(parentWidth/2 - nodeBounds.getWidth()/2);
-            node.setTranslateY(parentHeight/2 - nodeBounds.getHeight()/2);
+        ArrayList<Node> cNodes = new ArrayList<>();
+        commanderPane.getChildren().forEach(child -> {
+            if(child instanceof CardPane){
+                cNodes.add(child);
+                Bounds nodeBounds = child.getBoundsInParent();
+                child.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
+                child.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
+            }
         });
+        commanderPane.getChildren().setAll(cNodes);
     }
 
     public void setPaneStyles(ResourceManager resourceManager){
@@ -400,14 +427,13 @@ public class PlayerArea {
         manaPane.setBackground(background);
     }
 
-    public void updatePaneActions(ResourceManager resourceManager){
-        for(Pane areaPane : areaPanes){
-            Rect selectRect = new Rect(0, 0, 0, 0);
-            Pane selectArea = new Pane();
-            selectArea.setVisible(false);
-            selectArea.setBackground(new Background(new BackgroundFill(Color.rgb(77, 144, 254, 0.1), CornerRadii.EMPTY, new Insets(0))));
-            selectArea.setBorder(new Border(new BorderStroke(Color.rgb(77, 144, 254), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+    public void updatePaneActions(ResourceManager resourceManager){ Rect selectRect = new Rect(0, 0, 0, 0);
+        Pane selectArea = new Pane();
+        selectArea.setVisible(false);
+        selectArea.setBackground(new Background(new BackgroundFill(Color.rgb(77, 144, 254, 0.1), CornerRadii.EMPTY, new Insets(0))));
+        selectArea.setBorder(new Border(new BorderStroke(Color.rgb(77, 144, 254), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
+        for(Pane areaPane : areaPanes){
             areaPane.setOnMousePressed(e -> {
                 boolean isChild = false;
                 for(Node child : areaPane.getChildren()) {
@@ -426,12 +452,30 @@ public class PlayerArea {
                     selectArea.setTranslateY(e.getY());
                     selectArea.setMinWidth(0);
                     selectArea.setMinHeight(0);
+
+                    if(areaPane.getChildren().contains(selectArea)){
+                        areaPane.getChildren().remove(selectArea);
+                    }
                     areaPane.getChildren().add(selectArea);
                 }
             });
 
+            areaPane.setOnMouseReleased(e -> {
+                if (selectArea.getParent() != null && selectArea.isVisible() && e.getButton().equals(MouseButton.PRIMARY)) {
+                    selectArea.setVisible(false);
+                    areaPane.getChildren().remove(selectArea);
+
+                    removeAllSelected(getSelectedNodes());
+                    areaPane.getChildren().forEach(child -> {
+                        if (selectArea.getBoundsInParent().intersects(child.getBoundsInParent())) {
+                            addSelectedChild(getSelectedNodes(), child);
+                        }
+                    });
+                }
+            });
+
             areaPane.setOnMouseDragged(e -> {
-                if (selectArea.isVisible() && e.getButton().equals(MouseButton.PRIMARY)) {
+                if (selectArea.getParent() != null && selectArea.isVisible() && e.getButton().equals(MouseButton.PRIMARY)) {
                     double parentWidth = ((Pane) selectArea.getParent()).getWidth();
                     double parentHeight = ((Pane) selectArea.getParent()).getHeight();
 
@@ -460,20 +504,6 @@ public class PlayerArea {
 
                     selectArea.setTranslateY(minY);
                     selectArea.setMinHeight(maxY - minY);
-                }
-            });
-
-            areaPane.setOnMouseReleased(e -> {
-                if (selectArea.isVisible() && e.getButton().equals(MouseButton.PRIMARY)) {
-                    selectArea.setVisible(false);
-                    areaPane.getChildren().remove(selectArea);
-
-                    removeAllSelected(getSelectedNodes());
-                    areaPane.getChildren().forEach(child -> {
-                        if (selectArea.getBoundsInParent().intersects(child.getBoundsInParent())) {
-                            addSelectedChild(getSelectedNodes(), child);
-                        }
-                    });
                 }
             });
 
@@ -578,6 +608,7 @@ public class PlayerArea {
                     updatePanes();
                 });
 
+
                 child.setOnMouseClicked(e -> {
                     if(e.getButton() == MouseButton.PRIMARY){
                         if(e.getClickCount() == 2){
@@ -610,13 +641,17 @@ public class PlayerArea {
     }
 
     private void addSelectedChild(ArrayList<Node> selected, Node child){
-       ((CardPane) child).setSelected(true);
-        selected.add(child);
+        if(child instanceof CardPane) {
+            ((CardPane) child).setSelected(true);
+            selected.add(child);
+        }
     }
 
     private void removeSelectedChild(ArrayList<Node> selected, Node child){
-        ((CardPane) child).setSelected(false);
-        selected.remove(child);
+        if(child instanceof CardPane) {
+            ((CardPane) child).setSelected(false);
+            selected.remove(child);
+        }
     }
 
     private void removeAllSelected(ArrayList<Node> selected){
