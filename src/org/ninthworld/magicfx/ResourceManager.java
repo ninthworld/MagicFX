@@ -55,6 +55,10 @@ public class ResourceManager {
         this.guiPaneBorderColor = this.guiPaneFillColor = Color.BLACK;
     }
 
+    public HashMap<String, Image> getSymbols(){
+        return symbols;
+    }
+
     public ArrayList<CardData> getAllCards(){
         return allCards;
     }

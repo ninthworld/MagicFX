@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by NinthWorld on 4/5/2016.
@@ -47,6 +49,17 @@ public class CardData {
         varis.add(Integer.parseInt(this.multiverseId));
         Collections.sort(varis);
         return varis.indexOf(Integer.parseInt(this.multiverseId)) + 1;
+    }
+
+    public ArrayList<String> getManaSymbols(){
+        ArrayList<String> symbols = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{(.*?)\\}");
+        Matcher matcher = pattern.matcher(getManaCost());
+        while(matcher.find()){
+            String val = matcher.group(1).replaceAll("/", "");
+            symbols.add(val);
+        }
+        return symbols;
     }
 
     public String getSetCode() {
