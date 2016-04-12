@@ -7,13 +7,16 @@ public class CardEntity {
 
     private CardData cardData;
     private boolean flipped, tapped;
-    private int counters; // Etc...
+    private int plusCounters, redCounters, greenCounters, blueCounters;
 
     public CardEntity(CardData cardData){
         this.cardData = cardData;
         this.flipped = false;
         this.tapped = false;
-        this.counters = 0;
+        this.plusCounters = 0;
+        this.redCounters = 0;
+        this.greenCounters = 0;
+        this.blueCounters = 0;
     }
 
     public CardData getCardData() {
@@ -22,14 +25,6 @@ public class CardEntity {
 
     public void setCardData(CardData cardData) {
         this.cardData = cardData;
-    }
-
-    public int getCounters() {
-        return counters;
-    }
-
-    public void setCounters(int counters) {
-        this.counters = counters;
     }
 
     public boolean isFlipped() {
@@ -46,5 +41,37 @@ public class CardEntity {
 
     public void setTapped(boolean tapped) {
         this.tapped = tapped;
+    }
+
+    public int getPlusCounters() {
+        return plusCounters;
+    }
+
+    public void setPlusCounters(int plusCounters) {
+        this.plusCounters = plusCounters;
+    }
+
+    public int getRedCounters() {
+        return redCounters;
+    }
+
+    public void setRedCounters(int redCounters) {
+        this.redCounters = redCounters;
+    }
+
+    public int getGreenCounters() {
+        return greenCounters;
+    }
+
+    public void setGreenCounters(int greenCounters) {
+        this.greenCounters = greenCounters;
+    }
+
+    public int getBlueCounters() {
+        return blueCounters;
+    }
+
+    public void setBlueCounters(int blueCounters) {
+        this.blueCounters = blueCounters;
     }
 }

@@ -610,26 +610,32 @@ public class PlayerArea {
 
 
                 child.setOnMouseClicked(e -> {
-                    if(e.getButton() == MouseButton.PRIMARY){
-                        if(e.getClickCount() == 2){
-                            CardPane cardPane = (CardPane) child;
-                            if(areaPane == deckPane){
+                    if(child instanceof CardPane) {
+                        CardPane cardPane = (CardPane) child;
+                        if (e.isAltDown()) {
+                            if(e.getButton() == MouseButton.PRIMARY) {
+                                cardPane.setPlusCounters(cardPane.getCardEntity().getPlusCounters() + 1);
+                            }else if(e.getButton() == MouseButton.SECONDARY){
+                                cardPane.setPlusCounters(cardPane.getCardEntity().getPlusCounters() - 1);
+                            }
+                        } else if (e.getClickCount() == 2 && e.getButton() == MouseButton.PRIMARY) {
+                            if (areaPane == deckPane) {
                                 deckPane.getChildren().remove(child);
                                 moveCardFromTo(resourceManager, deckPane, handPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
                             }
 
-                            if(areaPane == handPane){
+                            if (areaPane == handPane) {
                                 handPane.getChildren().remove(child);
                                 moveCardFromTo(resourceManager, handPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
                             }
 
-                            if(areaPane == commanderPane){
+                            if (areaPane == commanderPane) {
                                 commanderPane.getChildren().remove(child);
                                 moveCardFromTo(resourceManager, commanderPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
                             }
 
-                            if(areaPane == battlefieldPane){
-                                cardPane.setTapped(cardPane.getCardEntity().isTapped());
+                            if (areaPane == battlefieldPane) {
+                                cardPane.setTapped(!cardPane.getCardEntity().isTapped());
                             }
 
                             updatePanes();

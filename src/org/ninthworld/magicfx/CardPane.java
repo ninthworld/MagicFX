@@ -31,7 +31,7 @@ public class CardPane extends BorderPane {
 
     private Pane centerPane;
     private ImageView cardImageView;
-    private TextFlow cardNameTextFlow, cardPTTextFlow;
+    private TextFlow cardNameTextFlow, cardPTTextFlow, cardPlusCounters, cardRedCounters, cardBlueCounters, cardGreenCounters;
     private HBox manaCostHBox;
 
     public CardPane(CardEntity cardEntity, ResourceManager resourceManager){
@@ -45,6 +45,10 @@ public class CardPane extends BorderPane {
         this.cardImageView = new ImageView();
         this.cardNameTextFlow = new TextFlow();
         this.cardPTTextFlow = new TextFlow();
+        this.cardPlusCounters = new TextFlow();
+        this.cardGreenCounters = new TextFlow();
+        this.cardRedCounters = new TextFlow();
+        this.cardBlueCounters = new TextFlow();
         this.manaCostHBox = new HBox();
     }
 
@@ -63,6 +67,26 @@ public class CardPane extends BorderPane {
 
     public void setCardEntity(CardEntity cardEntity) {
         this.cardEntity = cardEntity;
+    }
+
+    public void setPlusCounters(int i){
+        cardEntity.setPlusCounters(i);
+        applyCard();
+    }
+
+    public void setRedCounters(int i){
+        cardEntity.setRedCounters(i);
+        applyCard();
+    }
+
+    public void setBlueCounters(int i){
+        cardEntity.setBlueCounters(i);
+        applyCard();
+    }
+
+    public void setGreenCounters(int i){
+        cardEntity.setGreenCounters(i);
+        applyCard();
     }
 
     public void setFlipped(boolean flipped){
@@ -86,6 +110,11 @@ public class CardPane extends BorderPane {
     }
 
     private void applyCard(){
+        if(cardEntity.isTapped()){
+            this.setRotate(90);
+        }else{
+            this.setRotate(0);
+        }
 
         if(!selected) {
             this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(2))));
@@ -163,6 +192,32 @@ public class CardPane extends BorderPane {
             cardPTTextFlow.getChildren().setAll(cardPT);
         }
 
+        Text cardPCT = new Text();
+        if(cardEntity.getPlusCounters() > 0){
+            cardPlusCounters.setVisible(true);
+            cardPlusCounters.setTextAlignment(TextAlignment.CENTER);
+            cardPlusCounters.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
+            cardPlusCounters.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
+            cardPlusCounters.setBackground(new Background(new BackgroundFill(Color.GOLDENROD, new CornerRadii(8), new Insets(0))));
+            cardPlusCounters.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardPCT.setFont(font2);
+            cardPCT.setFill(Color.BLACK);
+            cardPCT.setText("+" + cardEntity.getPlusCounters() + "/+" + cardEntity.getPlusCounters());
+        }else if(cardEntity.getPlusCounters() < 0){
+            cardPlusCounters.setVisible(true);
+            cardPlusCounters.setTextAlignment(TextAlignment.CENTER);
+            cardPlusCounters.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
+            cardPlusCounters.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
+            cardPlusCounters.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(8), new Insets(0))));
+            cardPlusCounters.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardPCT.setFont(font2);
+            cardPCT.setFill(Color.WHITE);
+            cardPCT.setText("-" + -1*cardEntity.getPlusCounters() + "/-" + -1*cardEntity.getPlusCounters());
+        }else{
+            cardPlusCounters.setVisible(false);
+        }
+        cardPlusCounters.getChildren().setAll(cardPCT);
+
         ArrayList<ImageView> manaIcons = new ArrayList<>();
         if(showCost) {
             for (String symbol : cardEntity.getCardData().getManaSymbols()) {
@@ -203,17 +258,23 @@ public class CardPane extends BorderPane {
         }
 
         resourceManager.getScene().heightProperty().addListener(e -> {
+            Font _font1 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080));
+            Font _font2 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.14*(resourceManager.getScene().getHeight()/1080));
             double cardHeight = CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080);
             double cardWidth = cardHeight*.7;
 
             cardImageView.setFitHeight(cardHeight);
             this.setMinHeight(cardImageView.getFitHeight());
             cardNameTextFlow.setPrefWidth(cardWidth);
-            cardName.setFont(new Font("Lucida Sans", cardHeight*.12));
+            cardName.setFont(_font1);
 
             cardPTTextFlow.setPrefWidth(cardWidth);
             cardPTTextFlow.setTranslateY(cardHeight*.8);
-            cardPT.setFont(new Font("Lucida Sans", cardHeight*.14));
+            cardPT.setFont(_font2);
+
+            cardPlusCounters.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
+            cardPlusCounters.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
+            cardPCT.setFont(_font2);
 
             if (manaIcons.size() > 0) {
                 double iconWidth = manaIcons.get(0).getImage().getWidth();
@@ -237,7 +298,16 @@ public class CardPane extends BorderPane {
     public static CardPane createCardPane(CardEntity entity, ResourceManager resourceManager) {
         CardPane cardPane = new CardPane(entity, resourceManager);
         cardPane.setCenter(cardPane.centerPane);
-        cardPane.centerPane.getChildren().setAll(cardPane.cardImageView, cardPane.cardNameTextFlow, cardPane.cardPTTextFlow, cardPane.manaCostHBox);
+        cardPane.centerPane.getChildren().setAll(
+                cardPane.cardImageView,
+                cardPane.cardNameTextFlow,
+                cardPane.cardPTTextFlow,
+                cardPane.cardPlusCounters,
+                cardPane.cardGreenCounters,
+                cardPane.cardBlueCounters,
+                cardPane.cardRedCounters,
+                cardPane.manaCostHBox
+        );
         cardPane.applyCard();
         return cardPane;
     }
