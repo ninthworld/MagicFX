@@ -2,29 +2,13 @@ package org.ninthworld.magicfx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
-import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.SplitPane;
-import javafx.scene.effect.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.smartcardio.Card;
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 public class Main extends Application {
 
@@ -43,7 +27,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/magicfx.fxml"));
         primaryStage.setTitle("MagicFX");
-        primaryStage.setScene(new Scene(root, 1280, 640));
+        primaryStage.setScene(new Scene(root, 1440, 960));
         primaryStage.show();
         scene = primaryStage.getScene();
 
@@ -75,7 +59,7 @@ public class Main extends Application {
         cardPreview.setFitWidth(Math.min(312, scene.getWidth()-scene.getHeight()));
         cardPreview.setPreserveRatio(true);
         cardPreview.setSmooth(true);
-        cardPreview.setImage(resourceManager.getCardBackImage());
+        cardPreview.setImage(resourceManager.getCardBackImage(480, 680));
         resourceManager.setCardPreview(cardPreview);
 
         sideGridPane.getRowConstraints().addAll(new RowConstraints(), new RowConstraints(), new RowConstraints());
@@ -101,7 +85,7 @@ public class Main extends Application {
         fileChooser.setInitialDirectory(new File("C:\\Users\\NinthWorld\\IdeaProjects\\MagicFX"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All Supported Formats", "*.dec; *.deck; *.jdeck"));
         File deckFile = fileChooser.showOpenDialog(primaryStage);*/
-        File deckFile = new File("EDH-Simic-Vorel.jdeck");
+        File deckFile = new File("EDH-Boros-Aurelia.jdeck");
         mainPlayer.setDeckData(DeckLoader.loadDeckFile(deckFile, resourceManager.getAllCards()));
         mainPlayer.initGame();
 
@@ -114,12 +98,12 @@ public class Main extends Application {
         globalSplitTop.getItems().add(playerArea2.getParentGridPane());
 
         scene.widthProperty().addListener(e -> {
-            playerArea.updatePanes();
-            playerArea2.updatePanes();
+            playerArea.updatePanes(resourceManager);
+            playerArea2.updatePanes(resourceManager);
         });
         scene.heightProperty().addListener(e -> {
-            playerArea.updatePanes();
-            playerArea2.updatePanes();
+            playerArea.updatePanes(resourceManager);
+            playerArea2.updatePanes(resourceManager);
         });
         playerArea.updatePaneActions(resourceManager);
     }

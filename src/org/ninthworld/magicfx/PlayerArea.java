@@ -1,18 +1,23 @@
 package org.ninthworld.magicfx;
 
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 
 import javax.smartcardio.Card;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,9 +29,10 @@ public class PlayerArea {
 
     private GridPane parentGridPane, deckGravePane;
     private Pane battlefieldPane, exilePane, handPane, playerPane, commanderPane, graveyardPane, deckPane, manaPane;
+    private TextFlow deckTextFlow, graveyardTextFlow, battlefieldTextFlow, exileTextFlow, handTextFlow, commanderTextFlow;
 
     private ArrayList<Pane> areaPanes;
-    private ArrayList<Node> selectedNodes;
+    private ArrayList<CardPane> selectedNodes;
     private ArrayList<Drag> draggedNodes;
 
     private Player player;
@@ -45,12 +51,67 @@ public class PlayerArea {
         this.deckPane = new Pane();
         this.manaPane = new Pane();
 
+        this.deckTextFlow = new TextFlow();
+        this.graveyardTextFlow = new TextFlow();
+        this.battlefieldTextFlow = new TextFlow();
+        this.exileTextFlow = new TextFlow();
+        this.handTextFlow = new TextFlow();
+        this.commanderTextFlow = new TextFlow();
+
         this.areaPanes = new ArrayList<>();
         this.selectedNodes = new ArrayList<>();
         this.draggedNodes = new ArrayList<>();
     }
 
     //<editor-fold desc="Getters and Setters">
+    public TextFlow getBattlefieldTextFlow() {
+        return battlefieldTextFlow;
+    }
+
+    public void setBattlefieldTextFlow(TextFlow battlefieldTextFlow) {
+        this.battlefieldTextFlow = battlefieldTextFlow;
+    }
+
+    public TextFlow getExileTextFlow() {
+        return exileTextFlow;
+    }
+
+    public void setExileTextFlow(TextFlow exileTextFlow) {
+        this.exileTextFlow = exileTextFlow;
+    }
+
+    public TextFlow getHandTextFlow() {
+        return handTextFlow;
+    }
+
+    public void setHandTextFlow(TextFlow handTextFlow) {
+        this.handTextFlow = handTextFlow;
+    }
+
+    public TextFlow getCommanderTextFlow() {
+        return commanderTextFlow;
+    }
+
+    public void setCommanderTextFlow(TextFlow commanderTextFlow) {
+        this.commanderTextFlow = commanderTextFlow;
+    }
+
+    public TextFlow getDeckTextFlow() {
+        return deckTextFlow;
+    }
+
+    public void setDeckTextFlow(TextFlow deckTextFlow) {
+        this.deckTextFlow = deckTextFlow;
+    }
+
+    public TextFlow getGraveyardTextFlow() {
+        return graveyardTextFlow;
+    }
+
+    public void setGraveyardTextFlow(TextFlow graveyardTextFlow) {
+        this.graveyardTextFlow = graveyardTextFlow;
+    }
+
     public GridPane getParentGridPane() {
         return parentGridPane;
     }
@@ -115,11 +176,11 @@ public class PlayerArea {
         this.areaPanes = areaPanes;
     }
 
-    public ArrayList<Node> getSelectedNodes() {
+    public ArrayList<CardPane> getSelectedNodes() {
         return selectedNodes;
     }
 
-    public void setSelectedNodes(ArrayList<Node> selectedNodes) {
+    public void setSelectedNodes(ArrayList<CardPane> selectedNodes) {
         this.selectedNodes = selectedNodes;
     }
 
@@ -166,17 +227,34 @@ public class PlayerArea {
             commanderPane.getChildren().add(CardPane.createCardPane(new CardEntity(player.getCommander()), resourceManager));
         }
 
-        updatePanes();
+        updatePanes(resourceManager);
         updatePaneActions(resourceManager);
     }
 
-    public void updatePanes(){
-        updateBattlefieldPane();
-        updateHandPane();
-        updateExilePane();
-        updateDeckPane();
-        updateGraveyardPane();
-        updateCommanderPane();
+    public void updatePanes(ResourceManager resourceManager){
+        updateBattlefieldPane(resourceManager);
+        updateHandPane(resourceManager);
+        updateExilePane(resourceManager);
+        updateDeckPane(resourceManager);
+        updateGraveyardPane(resourceManager);
+        updateCommanderPane(resourceManager);
+
+        /*System.out.printf("" +
+                "Battlefield - Pane: %d, Array: %d\n" +
+                "       Hand - Pane: %d, Array: %d\n" +
+                "      Exile - Pane: %d, Array: %d\n" +
+                "       Deck - Pane: %d, Array: %d\n" +
+                "  Graveyard - Pane: %d, Array: %d\n" +
+                "  Commander - Pane: %d, Array: %b\n" +
+                "      Total = %d\n\n",
+                battlefieldPane.getChildren().size(), player.getBattlefield().size(),
+                handPane.getChildren().size(), player.getHand().size(),
+                exilePane.getChildren().size(), player.getExile().size(),
+                deckPane.getChildren().size(), player.getDeck().size(),
+                graveyardPane.getChildren().size(), player.getGraveyard().size(),
+                commanderPane.getChildren().size(), player.getCommander() != null,
+                player.getBattlefield().size()+player.getHand().size()+player.getExile().size()+player.getDeck().size()+player.getGraveyard().size()
+        );*/
     }
 
     public void moveCardFromTo(ResourceManager resourceManager, Pane fromPane, Pane toPane, CardPane fromCard, CardPane toCard){
@@ -226,7 +304,13 @@ public class PlayerArea {
             newCardEntity = new CardEntity(newCardEntity.getCardData());
             CardPane newCardPane = CardPane.createCardPane(newCardEntity, resourceManager);
 
-            graveyardPane.getChildren().clear();
+            ArrayList<Node> tempChildren = new ArrayList<>();
+            graveyardPane.getChildren().forEach(tempChildren::add);
+            for(Node node : tempChildren){
+                if(node instanceof CardPane) {
+                    graveyardPane.getChildren().remove(node);
+                }
+            }
             graveyardPane.getChildren().add(newCardPane);
         }
 
@@ -285,7 +369,7 @@ public class PlayerArea {
         updatePaneActions(resourceManager);
     }
 
-    private void updateBattlefieldPane(){
+    private void updateBattlefieldPane(ResourceManager resourceManager){
         double parentWidth = (battlefieldPane.getWidth() > 0 ? battlefieldPane.getWidth() : battlefieldPane.getPrefWidth());
         double parentHeight = (battlefieldPane.getHeight() > 0 ? battlefieldPane.getHeight() : battlefieldPane.getPrefHeight());
         ArrayList<Node> bNodes = new ArrayList<>();
@@ -303,7 +387,7 @@ public class PlayerArea {
         battlefieldPane.getChildren().setAll(bNodes);
     }
 
-    private void updateHandPane(){
+    private void updateHandPane(ResourceManager resourceManager){
         double parentWidth = (handPane.getWidth() > 0 ? handPane.getWidth() : handPane.getPrefWidth());
         double parentHeight = (handPane.getHeight() > 0 ? handPane.getHeight() : handPane.getPrefHeight());
         ArrayList<Node> hNodes = new ArrayList<>();
@@ -320,7 +404,7 @@ public class PlayerArea {
         });
 
         hNodes.forEach(node -> {
-            Bounds nodeBounds = node.getBoundsInParent();
+            Bounds nodeBounds = node.getLayoutBounds();
             double padding = 8;
             if(hNodes.size()*(nodeBounds.getWidth()+padding) > parentWidth){
                 padding -= (hNodes.size()*(nodeBounds.getWidth()+padding) - parentWidth + nodeBounds.getWidth()/2)/hNodes.size();
@@ -330,7 +414,7 @@ public class PlayerArea {
         });
     }
 
-    private void updateExilePane(){
+    private void updateExilePane(ResourceManager resourceManager){
         double parentWidth = (exilePane.getWidth() > 0 ? exilePane.getWidth() : exilePane.getPrefWidth());
         double parentHeight = (exilePane.getHeight() > 0 ? exilePane.getHeight() : exilePane.getPrefHeight());
         ArrayList<Node> eNodes = new ArrayList<>();
@@ -348,19 +432,33 @@ public class PlayerArea {
         exilePane.getChildren().setAll(eNodes);
 
         eNodes.forEach(node -> {
-            Bounds nodeBounds = node.getBoundsInParent();
+            Bounds nodeBounds = node.getLayoutBounds();
             node.setTranslateX(parentWidth/2 - nodeBounds.getWidth()/2);
         });
     }
 
-    private void updateGraveyardPane(){
+    private void updateGraveyardPane(ResourceManager resourceManager){
         double parentWidth = (graveyardPane.getWidth() > 0 ? graveyardPane.getWidth() : graveyardPane.getPrefWidth());
         double parentHeight = (graveyardPane.getHeight() > 0 ? graveyardPane.getHeight() : graveyardPane.getPrefHeight());
+
+        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
+
+        graveyardTextFlow.setTextAlignment(TextAlignment.CENTER);
+        graveyardTextFlow.setPrefWidth(parentWidth);
+        graveyardTextFlow.setTranslateY(parentHeight*.08);
+        Text text = new Text();
+        text.setFont(font1);
+        text.setStyle(strokeStyle);
+        text.setFill(Color.rgb(255, 255, 255, 0.6));
+        text.setText("Graveyard (" + player.getGraveyard().size() + ")");
+        graveyardTextFlow.getChildren().setAll(text);
+
         ArrayList<Node> gNodes = new ArrayList<>();
         graveyardPane.getChildren().forEach(child -> {
+            gNodes.add(child);
             if(child instanceof CardPane){
-                gNodes.add(child);
-                Bounds nodeBounds = child.getBoundsInParent();
+                Bounds nodeBounds = child.getLayoutBounds();
                 child.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
                 child.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
             }
@@ -368,14 +466,28 @@ public class PlayerArea {
         graveyardPane.getChildren().setAll(gNodes);
     }
 
-    private void updateDeckPane(){
+    private void updateDeckPane(ResourceManager resourceManager){
         double parentWidth = (deckPane.getWidth() > 0 ? deckPane.getWidth() : deckPane.getPrefWidth());
         double parentHeight = (deckPane.getHeight() > 0 ? deckPane.getHeight() : deckPane.getPrefHeight());
+
+        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
+
+        deckTextFlow.setTextAlignment(TextAlignment.CENTER);
+        deckTextFlow.setPrefWidth(parentWidth);
+        deckTextFlow.setTranslateY(parentHeight*.08);
+        Text text = new Text();
+        text.setFont(font1);
+        text.setStyle(strokeStyle);
+        text.setFill(Color.rgb(255, 255, 255, 0.6));
+        text.setText("Library (" + player.getDeck().size() + ")");
+        deckTextFlow.getChildren().setAll(text);
+
         ArrayList<Node> dNodes = new ArrayList<>();
         deckPane.getChildren().forEach(child -> {
+            dNodes.add(child);
             if(child instanceof CardPane){
-                dNodes.add(child);
-                Bounds nodeBounds = child.getBoundsInParent();
+                Bounds nodeBounds = child.getLayoutBounds();
                 child.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
                 child.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
             }
@@ -383,14 +495,14 @@ public class PlayerArea {
         deckPane.getChildren().setAll(dNodes);
     }
 
-    private void updateCommanderPane(){
+    private void updateCommanderPane(ResourceManager resourceManager){
         double parentWidth = (commanderPane.getWidth() > 0 ? commanderPane.getWidth() : commanderPane.getPrefWidth());
         double parentHeight = (commanderPane.getHeight() > 0 ? commanderPane.getHeight() : commanderPane.getPrefHeight());
         ArrayList<Node> cNodes = new ArrayList<>();
         commanderPane.getChildren().forEach(child -> {
             if(child instanceof CardPane){
                 cNodes.add(child);
-                Bounds nodeBounds = child.getBoundsInParent();
+                Bounds nodeBounds = child.getLayoutBounds();
                 child.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
                 child.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
             }
@@ -427,17 +539,83 @@ public class PlayerArea {
         manaPane.setBackground(background);
     }
 
+    public boolean released = true;
     public void updatePaneActions(ResourceManager resourceManager){ Rect selectRect = new Rect(0, 0, 0, 0);
         Pane selectArea = new Pane();
         selectArea.setVisible(false);
         selectArea.setBackground(new Background(new BackgroundFill(Color.rgb(77, 144, 254, 0.1), CornerRadii.EMPTY, new Insets(0))));
         selectArea.setBorder(new Border(new BorderStroke(Color.rgb(77, 144, 254), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
+        resourceManager.getScene().addEventHandler(KeyEvent.KEY_RELEASED, e -> released = true);
+        resourceManager.getScene().addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            if(released) {
+                released = false;
+                if (e.getCode() == KeyCode.D && e.isControlDown()) {
+                    CardEntity newCardEntity = new CardEntity(new CardData());
+                    if (player.getDeck().size() > 0) {
+                        newCardEntity.setCardData(player.getDeck().remove(player.getDeck().size() - 1));
+                    }
+
+                    player.getHand().add(newCardEntity.getCardData());
+                    newCardEntity = new CardEntity(newCardEntity.getCardData());
+                    CardPane newCardPane = CardPane.createCardPane(newCardEntity, resourceManager);
+                    addSelectedChild(selectedNodes, newCardPane);
+                    handPane.getChildren().add(newCardPane);
+
+                    updatePanes(resourceManager);
+                    updatePaneActions(resourceManager);
+                }
+
+                if (e.getCode() == KeyCode.CLOSE_BRACKET) {
+                    if (e.isShiftDown()) {
+                        for (CardPane card : selectedNodes) {
+                            if (card.getCardEntity().getCardData().getType().toLowerCase().contains("planeswalker")) {
+                                int loyalty = card.getCardEntity().getLoyaltyCounters();
+                                card.setLoyaltyCounters(loyalty + 1);
+                            } else {
+                                int counters = card.getCardEntity().getPlusCounters();
+                                card.setPlusCounters(counters + 1);
+                            }
+                        }
+                    }
+                } else if (e.getCode() == KeyCode.OPEN_BRACKET) {
+                    if (e.isShiftDown()) {
+                        for (CardPane card : selectedNodes) {
+                            if (card.getCardEntity().getCardData().getType().toLowerCase().contains("planeswalker")) {
+                                int loyalty = card.getCardEntity().getLoyaltyCounters();
+                                if (loyalty > 0) {
+                                    card.setLoyaltyCounters(loyalty - 1);
+                                }
+                            } else {
+                                int counters = card.getCardEntity().getPlusCounters();
+                                card.setPlusCounters(counters - 1);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        parentGridPane.setOnMouseReleased(e -> {
+            for(Drag drag : getDraggedNodes()){
+                Pane dragParent = drag.dragParent; //(Pane) drag.drag.getParent();
+                Pane srcParent = drag.srcParent; //(Pane) drag.src.getParent();
+
+                dragParent.getChildren().remove(drag.drag);
+                srcParent.getChildren().remove(drag.src);
+
+                moveCardFromTo(resourceManager, srcParent, dragParent, drag.src, drag.drag);
+            }
+
+            removeAllDragged(getDraggedNodes());
+            updatePanes(resourceManager);
+        });
+
         for(Pane areaPane : areaPanes){
             areaPane.setOnMousePressed(e -> {
                 boolean isChild = false;
                 for(Node child : areaPane.getChildren()) {
-                    if(child.getBoundsInParent().intersects(e.getX(), e.getY(), 1, 1)){
+                    if(child instanceof CardPane && child.getBoundsInParent().intersects(e.getX(), e.getY(), 1, 1)){
                         isChild = true;
                         break;
                     }
@@ -467,8 +645,13 @@ public class PlayerArea {
 
                     removeAllSelected(getSelectedNodes());
                     areaPane.getChildren().forEach(child -> {
-                        if (selectArea.getBoundsInParent().intersects(child.getBoundsInParent())) {
-                            addSelectedChild(getSelectedNodes(), child);
+                        if(child instanceof CardPane){
+                            CardPane cardPane = (CardPane) child;
+                            if (selectArea.getBoundsInParent().intersects(cardPane.getBoundsInParent())) {
+                                if (!cardPane.isDragged()) {
+                                    addSelectedChild(getSelectedNodes(), cardPane);
+                                }
+                            }
                         }
                     });
                 }
@@ -508,163 +691,146 @@ public class PlayerArea {
             });
 
             for(Node child : areaPane.getChildren()){
-                child.setOnMouseEntered(e -> {
-                    if(child instanceof CardPane){
-                        CardPane cardPane = (CardPane) child;
-                        Image img = resourceManager.getCardImage(((CardPane) child).getCardEntity().getCardData());
-                        if(cardPane.getCardEntity().isFlipped() || img == null){
-                            img = resourceManager.getCardBackImage();
+                if(child instanceof CardPane) {
+                    CardPane cardPane = (CardPane) child;
+                    cardPane.setOnMouseEntered(e -> {
+                        Image img = resourceManager.getCardImage(((CardPane) child).getCardEntity().getCardData(), 480, 680);
+                        if (cardPane.getCardEntity().isFlipped() || img == null) {
+                            img = resourceManager.getCardBackImage(480, 680);
                         }
                         resourceManager.getCardPreview().setImage(img);
-                    }
-                });
+                    });
 
-                child.setOnMousePressed(e -> {
-                    if(e.getButton().equals(MouseButton.PRIMARY)) {
-                        if (getSelectedNodes().contains(child)) {
-                            if (e.isShiftDown()) {
-                                removeSelectedChild(getSelectedNodes(), child);
+                    cardPane.setOnMousePressed(e -> {
+                        if (e.getButton().equals(MouseButton.PRIMARY)) {
+                            if (getSelectedNodes().contains(cardPane)) {
+                                if (e.isShiftDown()) {
+                                    removeSelectedChild(getSelectedNodes(), cardPane);
+                                }
+                            } else {
+                                if (!e.isShiftDown()) {
+                                    removeAllSelected(getSelectedNodes());
+                                }
+                                addSelectedChild(getSelectedNodes(), cardPane);
                             }
-                        } else {
-                            if (!e.isShiftDown()) {
-                                removeAllSelected(getSelectedNodes());
-                            }
-                            addSelectedChild(getSelectedNodes(), child);
                         }
-                    }
-                });
+                    });
 
-                child.setOnDragDetected(e -> {
-                    for(Node select : getSelectedNodes()){
-                        if(select instanceof CardPane){
-                            CardPane srcPane = (CardPane) select;
-                            CardPane cardPane = CardPane.createCardPane(srcPane.getCardEntity(), resourceManager);
-                            cardPane.setTranslateX(((CardPane) child).getTranslateX());
-                            cardPane.setTranslateY(((CardPane) child).getTranslateY());
+                    cardPane.setOnDragDetected(e -> {
+                        for (CardPane srcPane : getSelectedNodes()) {
+                            CardPane newCardPane = CardPane.createCardPane(srcPane.getCardEntity(), resourceManager);
+                            newCardPane.setTranslateX(cardPane.getTranslateX());
+                            newCardPane.setTranslateY(cardPane.getTranslateY());
 
-                            Drag drag = new Drag(srcPane, cardPane, (Pane) srcPane.getParent(), (Pane) srcPane.getParent(), e.getX(), e.getY());
-                            ((Pane) select.getParent()).getChildren().add(drag.drag);
+                            Drag drag = new Drag(srcPane, newCardPane, (Pane) srcPane.getParent(), (Pane) srcPane.getParent(), e.getX(), e.getY());
+                            ((Pane) srcPane.getParent()).getChildren().add(drag.drag);
 
                             addDraggedChild(getDraggedNodes(), drag);
                         }
-                    }
-                });
+                    });
 
-                child.setOnMouseDragged(e -> {
-                    for(Drag drag : getDraggedNodes()){
-                        Pane dragParent = (Pane) drag.drag.getParent();
-                        double mouseX = e.getSceneX();
-                        double mouseY = e.getSceneY();
+                    cardPane.setOnMouseDragged(e -> {
+                        for (Drag drag : getDraggedNodes()) {
 
-                        areaPanes.forEach(pane -> {
-                            if (drag.drag.getParent() != pane && pane.localToScene(pane.getBoundsInLocal()).contains(mouseX, mouseY)) {
-                                dragParent.getChildren().remove(drag.drag);
-                                pane.getChildren().add(drag.drag);
-                                drag.dragParent = pane;
+                            Pane dragParent = (Pane) drag.drag.getParent();
+                            double mouseX = e.getSceneX();
+                            double mouseY = e.getSceneY();
+
+                            areaPanes.forEach(pane -> {
+                                if (dragParent != pane && pane.localToScene(pane.getBoundsInLocal()).contains(mouseX, mouseY)) {
+                                    dragParent.getChildren().remove(drag.drag);
+                                    pane.getChildren().add(drag.drag);
+                                    drag.dragParent = pane;
+                                }
+                            });
+
+                            double sticky = 16;
+                            Bounds parentBounds = dragParent.localToScene(dragParent.getBoundsInLocal());
+                            Bounds childBounds = drag.drag.localToScene(drag.drag.getBoundsInLocal());
+
+                            double globalX = mouseX - drag.xOffset + getDraggedNodes().indexOf(drag) * (childBounds.getWidth() + sticky);
+                            double globalY = mouseY - drag.yOffset;
+
+                            if (globalX < parentBounds.getMinX()) {
+                                globalX = parentBounds.getMinX();
+                            } else if (globalX + childBounds.getWidth() > parentBounds.getMaxX()) {
+                                globalX = parentBounds.getMaxX() - childBounds.getWidth();
                             }
-                        });
 
-                        double sticky = 16;
-                        Bounds parentBounds = dragParent.localToScene(dragParent.getBoundsInLocal());
-                        Bounds childBounds = drag.drag.localToScene(drag.drag.getBoundsInLocal());
+                            if (globalY < parentBounds.getMinY()) {
+                                globalY = parentBounds.getMinY();
+                            } else if (globalY + childBounds.getHeight() > parentBounds.getMaxY()) {
+                                globalY = parentBounds.getMaxY() - childBounds.getHeight();
+                            }
 
-                        double globalX = mouseX - drag.xOffset + getDraggedNodes().indexOf(drag) * (childBounds.getWidth() + sticky);
-                        double globalY = mouseY - drag.yOffset;
+                            globalX = Math.floor(globalX / sticky) * sticky;
+                            globalY = Math.floor(globalY / sticky) * sticky;
 
-                        if (globalX < parentBounds.getMinX()) {
-                            globalX = parentBounds.getMinX();
-                        } else if (globalX + childBounds.getWidth() > parentBounds.getMaxX()) {
-                            globalX = parentBounds.getMaxX() - childBounds.getWidth();
+                            drag.drag.setTranslateX(globalX - parentBounds.getMinX());
+                            drag.drag.setTranslateY(globalY - parentBounds.getMinY());
+
+                            updatePanes(resourceManager);
                         }
+                    });
 
-                        if (globalY < parentBounds.getMinY()) {
-                            globalY = parentBounds.getMinY();
-                        } else if (globalY + childBounds.getHeight() > parentBounds.getMaxY()) {
-                            globalY = parentBounds.getMaxY() - childBounds.getHeight();
-                        }
-
-                        globalX = Math.floor(globalX / sticky) * sticky;
-                        globalY = Math.floor(globalY / sticky) * sticky;
-
-                        drag.drag.setTranslateX(globalX - parentBounds.getMinX());
-                        drag.drag.setTranslateY(globalY - parentBounds.getMinY());
-
-                        updatePanes();
-                    }
-                });
-
-                child.setOnMouseReleased(e -> {
-                    for(Drag drag : getDraggedNodes()){
-                        Pane dragParent = drag.dragParent; //(Pane) drag.drag.getParent();
-                        Pane srcParent = drag.srcParent; //(Pane) drag.src.getParent();
-
-                        dragParent.getChildren().remove(drag.drag);
-                        srcParent.getChildren().remove(drag.src);
-
-                        moveCardFromTo(resourceManager, srcParent, dragParent, drag.src, drag.drag);
-                    }
-
-                    removeAllDragged(getDraggedNodes());
-                    updatePanes();
-                });
-
-
-                child.setOnMouseClicked(e -> {
-                    if(child instanceof CardPane) {
-                        CardPane cardPane = (CardPane) child;
+                    cardPane.setOnMouseClicked(e -> {
                         if (e.isAltDown()) {
-                            if(e.getButton() == MouseButton.PRIMARY) {
-                                cardPane.setPlusCounters(cardPane.getCardEntity().getPlusCounters() + 1);
-                            }else if(e.getButton() == MouseButton.SECONDARY){
-                                cardPane.setPlusCounters(cardPane.getCardEntity().getPlusCounters() - 1);
+                            boolean isTapped = cardPane.getCardEntity().isTapped();
+                            for(CardPane card : selectedNodes) {
+                                card.setTapped(!isTapped);
                             }
-                        } else if (e.getClickCount() == 2 && e.getButton() == MouseButton.PRIMARY) {
-                            if (areaPane == deckPane) {
-                                deckPane.getChildren().remove(child);
-                                moveCardFromTo(resourceManager, deckPane, handPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                        } else if (e.getButton() == MouseButton.PRIMARY) {
+                            if (e.getClickCount() >= 2) {
+                                if (areaPane == deckPane) {
+                                    deckPane.getChildren().remove(child);
+                                    moveCardFromTo(resourceManager, deckPane, handPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                                }
+
+                                if (e.getClickCount() == 2) {
+                                    if (areaPane == handPane) {
+                                        handPane.getChildren().remove(child);
+                                        moveCardFromTo(resourceManager, handPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                                    }
+
+                                    if (areaPane == commanderPane) {
+                                        commanderPane.getChildren().remove(child);
+                                        moveCardFromTo(resourceManager, commanderPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                                    }
+
+                                    if (areaPane == battlefieldPane) {
+                                        boolean isTapped = cardPane.getCardEntity().isTapped();
+                                        for(CardPane card : selectedNodes) {
+                                            card.setTapped(!isTapped);
+                                        }
+                                    }
+                                }
                             }
 
-                            if (areaPane == handPane) {
-                                handPane.getChildren().remove(child);
-                                moveCardFromTo(resourceManager, handPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
-                            }
-
-                            if (areaPane == commanderPane) {
-                                commanderPane.getChildren().remove(child);
-                                moveCardFromTo(resourceManager, commanderPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
-                            }
-
-                            if (areaPane == battlefieldPane) {
-                                cardPane.setTapped(!cardPane.getCardEntity().isTapped());
-                            }
-
-                            updatePanes();
+                            updatePanes(resourceManager);
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }
 
-    private void addSelectedChild(ArrayList<Node> selected, Node child){
-        if(child instanceof CardPane) {
-            ((CardPane) child).setSelected(true);
-            selected.add(child);
-        }
+    private void addSelectedChild(ArrayList<CardPane> selected, CardPane child){
+        child.setSelected(true);
+        selected.add(child);
     }
 
-    private void removeSelectedChild(ArrayList<Node> selected, Node child){
-        if(child instanceof CardPane) {
-            ((CardPane) child).setSelected(false);
+    private void removeSelectedChild(ArrayList<CardPane> selected, CardPane child){
+        child.setSelected(false);
+        if(selected.contains(child)) {
             selected.remove(child);
         }
     }
 
-    private void removeAllSelected(ArrayList<Node> selected){
-        ArrayList<Node> copy = new ArrayList<>();
+    private void removeAllSelected(ArrayList<CardPane> selected){
+        ArrayList<CardPane> copy = new ArrayList<>();
         copy.addAll(selected);
 
-        for(Node child : copy){
+        for(CardPane child : copy){
             removeSelectedChild(selected, child);
         }
     }
@@ -676,7 +842,9 @@ public class PlayerArea {
 
     private void removeDraggedChild(ArrayList<Drag> dragged, Drag child){
         child.src.setDragged(false);
-        dragged.remove(child);
+        if(dragged.contains(child)) {
+            dragged.remove(child);
+        }
     }
 
     private void removeAllDragged(ArrayList<Drag> dragged){
@@ -765,6 +933,14 @@ public class PlayerArea {
         playerArea.getPlayerPane().setPrefSize(initialWidth, initialDeckHeight);
         playerArea.getHandPane().setPrefSize(playerArea.getParentGridPane().getWidth() - initialWidth*2, initialDeckHeight);
         playerArea.getCommanderPane().setPrefSize(initialWidth, initialDeckHeight);
+
+        // Add Text Flow
+        playerArea.getDeckPane().getChildren().add(playerArea.getDeckTextFlow());
+        playerArea.getGraveyardPane().getChildren().add(playerArea.getGraveyardTextFlow());
+        playerArea.getBattlefieldPane().getChildren().add(playerArea.getBattlefieldTextFlow());
+        playerArea.getExilePane().getChildren().add(playerArea.getBattlefieldTextFlow());
+        playerArea.getHandPane().getChildren().add(playerArea.getHandTextFlow());
+        playerArea.getCommanderPane().getChildren().add(playerArea.getCommanderTextFlow());
 
         // Add area panes
         playerArea.getAreaPanes().add(playerArea.getBattlefieldPane());

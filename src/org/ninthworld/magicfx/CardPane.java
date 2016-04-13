@@ -14,8 +14,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import net.coobird.thumbnailator.Thumbnails;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.font.TextLayout;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -29,9 +34,9 @@ public class CardPane extends BorderPane {
     private CardEntity cardEntity;
     private ResourceManager resourceManager;
 
-    private Pane centerPane;
-    private ImageView cardImageView;
-    private TextFlow cardNameTextFlow, cardPTTextFlow, cardPlusCounters, cardRedCounters, cardBlueCounters, cardGreenCounters;
+    private Pane centerPane, symbolPane;
+    private ImageView cardImageView, cardSymbolImageView;
+    private TextFlow cardNameTextFlow, cardPTTextFlow, cardLoyaltyCounters, cardPlusCounters, cardRedCounters, cardBlueCounters, cardGreenCounters;
     private HBox manaCostHBox;
 
     public CardPane(CardEntity cardEntity, ResourceManager resourceManager){
@@ -49,7 +54,10 @@ public class CardPane extends BorderPane {
         this.cardGreenCounters = new TextFlow();
         this.cardRedCounters = new TextFlow();
         this.cardBlueCounters = new TextFlow();
+        this.cardLoyaltyCounters = new TextFlow();
         this.manaCostHBox = new HBox();
+        this.symbolPane = new Pane();
+        this.cardSymbolImageView = new ImageView();
     }
 
     public boolean isShowCost() {
@@ -89,6 +97,11 @@ public class CardPane extends BorderPane {
         applyCard();
     }
 
+    public void setLoyaltyCounters(int loyalty){
+        cardEntity.setLoyaltyCounters(loyalty);
+        applyCard();
+    }
+
     public void setFlipped(boolean flipped){
         cardEntity.setFlipped(flipped);
         applyCard();
@@ -109,114 +122,191 @@ public class CardPane extends BorderPane {
         applyCard();
     }
 
+    public boolean isDragged(){
+        return dragged;
+    }
+
     private void applyCard(){
+        double cardHeight = 2 * (Math.floor(CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080))/2);
+        double cardWidth = .72 * cardHeight;
+
+        // Card Border Pane
+        this.setWidth(cardWidth + 2);
+        this.setHeight(cardHeight + 2);
+        this.setMinSize(getWidth(), getHeight());
+        this.setPrefSize(getWidth(), getHeight());
+        this.setMaxSize(getWidth(), getHeight());
+
+        // Card Image View
+        Image img = null;
+        if (cardEntity.isFlipped()) {
+            img = resourceManager.getCardBackImage(cardWidth, cardHeight);
+        }else{
+            img = resourceManager.getCardImage(cardEntity.getCardData(), cardWidth, cardHeight);
+        }
+
+        cardImageView.setImage(img);
+        cardImageView.setSmooth(true);
+        cardImageView.setCache(true);
+        cardImageView.setFitHeight(cardHeight);
+        cardImageView.setFitWidth(cardWidth);
+
+        // If Tapped
         if(cardEntity.isTapped()){
             this.setRotate(90);
         }else{
             this.setRotate(0);
         }
 
+        // If Selected
         if(!selected) {
-            this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(2))));
+            this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
         }else{
-            this.setBorder(new Border(new BorderStroke(Color.rgb(77, 144, 254), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(2))));
+            this.setBorder(new Border(new BorderStroke(Color.rgb(77, 144, 254), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
         }
 
+        // If Dragged
         if(dragged){
             this.setEffect(new ColorAdjust(0, 0, -0.5, 0));
             this.setOpacity(0.4);
         }
 
-        Image img = null;
-        if (cardEntity.isFlipped()) {
-            img = resourceManager.getCardBackImage();
-        }else{
-            img = resourceManager.getCardImage(cardEntity.getCardData());
-        }
-
-        cardImageView.setImage(img);
-        cardImageView.setFitHeight(CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
-        cardImageView.setPreserveRatio(true);
-        cardImageView.setSmooth(true);
-        cardImageView.setCache(true);
-
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(1.6);
-        cardImageView.setEffect(gaussianBlur);
-
-        this.setMinWidth(cardImageView.getFitWidth());
-        this.setMinHeight(cardImageView.getFitHeight());
-
-        String finalName = "";
-        String[] nameParts = cardEntity.getCardData().getName().split(" ");
-        int runningCount = 0;
-        for(String part : nameParts){
-            if(runningCount + part.length() <= 10){
-                runningCount += part.length();
-            }else{
-                runningCount = 0;
-                if(finalName != ""){
-                    finalName += "\n";
-                }
-            }
-
-            finalName += part + " ";
-        }
-
-        Font font1 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080));
-        Font font2 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.14*(resourceManager.getScene().getHeight()/1080));
-
-        DropShadow ds = new DropShadow();
-        ds.setColor(Color.rgb(0, 0, 0, 0.7));
-        ds.setRadius(1.75);
-        ds.setSpread(1);
+        String strokeStyle = "-fx-effect: dropshadow(one-pass-box, black, 4, 1, 0, 0);";
+        String strokeStyle2 = "-fx-effect: dropshadow(one-pass-box, rgb(100, 80, 0), 4, 1, 0, 0);";
+        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * cardHeight);
+        Font font2 = Font.loadFont(resourceManager.lucidaFontURI, .12 * cardHeight);
+        Font font3 = Font.loadFont(resourceManager.lucidaFontURI, .09 * cardHeight);
 
         cardNameTextFlow.setTextAlignment(TextAlignment.CENTER);
-        cardNameTextFlow.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
+        cardNameTextFlow.setMaxWidth(cardWidth);
+        cardNameTextFlow.setTranslateY(.01 * cardHeight);
         Text cardName = new Text();
         cardName.setFont(font1);
+        cardName.setStyle(strokeStyle);
         cardName.setFill(Color.WHITE);
-        cardName.setEffect(ds);
-        cardName.setText(finalName);
+        cardName.setText(cardEntity.getCardData().getName());
         cardNameTextFlow.getChildren().setAll(cardName);
 
         Text cardPT = new Text();
-        if(!cardEntity.getCardData().getPower().equals("")) {
+        if(!cardEntity.getCardData().getToughness().equals("")) {
             cardPTTextFlow.setTextAlignment(TextAlignment.RIGHT);
-            cardPTTextFlow.setPrefWidth(CardPane.cardHeightAnchor * .7 * (resourceManager.getScene().getHeight() / 1080));
-            cardPTTextFlow.setTranslateY(CardPane.cardHeightAnchor * .8 * (resourceManager.getScene().getHeight() / 1080));
+            cardPTTextFlow.setPrefWidth(cardWidth);
+            cardPTTextFlow.setTranslateY(.86 * cardHeight);
             cardPT.setFont(font2);
+            cardPT.setStyle(strokeStyle);
             cardPT.setFill(Color.WHITE);
-            cardPT.setEffect(ds);
             cardPT.setText(cardEntity.getCardData().getPower() + "/" + cardEntity.getCardData().getToughness());
             cardPTTextFlow.getChildren().setAll(cardPT);
         }
+
+        Text cardLCT = new Text();
+        if(!cardEntity.getCardData().getLoyalty().equals("")){
+            cardLoyaltyCounters.setTextAlignment(TextAlignment.CENTER);
+            cardLoyaltyCounters.setTranslateX(.78 * cardWidth);
+            cardLoyaltyCounters.setTranslateY(cardHeight - .22 * cardWidth);
+            cardLoyaltyCounters.setPrefWidth(.2 * cardWidth);
+            cardLoyaltyCounters.setPrefHeight(.2 * cardWidth);
+            cardLoyaltyCounters.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 255), new CornerRadii(8), new Insets(0))));
+            cardLoyaltyCounters.setBorder(new Border(new BorderStroke(Color.rgb(153, 25, 152), BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardLCT.setFont(font3);
+            cardLCT.setStyle(strokeStyle);
+            cardLCT.setFill(Color.WHITE);
+            cardLCT.setText(Integer.toString(cardEntity.getLoyaltyCounters()));
+            cardLCT.setTranslateY(1);
+        }
+        cardLoyaltyCounters.getChildren().setAll(cardLCT);
 
         Text cardPCT = new Text();
         if(cardEntity.getPlusCounters() > 0){
             cardPlusCounters.setVisible(true);
             cardPlusCounters.setTextAlignment(TextAlignment.CENTER);
-            cardPlusCounters.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
-            cardPlusCounters.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
-            cardPlusCounters.setBackground(new Background(new BackgroundFill(Color.GOLDENROD, new CornerRadii(8), new Insets(0))));
-            cardPlusCounters.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
-            cardPCT.setFont(font2);
-            cardPCT.setFill(Color.BLACK);
+            cardPlusCounters.setTranslateX(.16 * cardWidth);
+            cardPlusCounters.setTranslateY(.5 * cardHeight);
+            cardPlusCounters.setPrefWidth(.68 * cardWidth);
+            cardPlusCounters.setPrefHeight(.14 * cardHeight);
+            cardPlusCounters.setBackground(new Background(new BackgroundFill(Color.rgb(200, 160, 0), new CornerRadii(8), new Insets(0))));
+            cardPlusCounters.setBorder(new Border(new BorderStroke(Color.rgb(100, 80, 0), BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardPCT.setFont(font3);
+            cardPCT.setStyle(strokeStyle);
+            cardPCT.setFill(Color.WHITE);
             cardPCT.setText("+" + cardEntity.getPlusCounters() + "/+" + cardEntity.getPlusCounters());
         }else if(cardEntity.getPlusCounters() < 0){
             cardPlusCounters.setVisible(true);
             cardPlusCounters.setTextAlignment(TextAlignment.CENTER);
-            cardPlusCounters.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
-            cardPlusCounters.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
-            cardPlusCounters.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(8), new Insets(0))));
-            cardPlusCounters.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
-            cardPCT.setFont(font2);
+            cardPlusCounters.setTranslateX(.16 * cardWidth);
+            cardPlusCounters.setTranslateY(.5 * cardHeight);
+            cardPlusCounters.setPrefWidth(.68 * cardWidth);
+            cardPlusCounters.setPrefHeight(.14 * cardHeight);
+            cardPlusCounters.setBackground(new Background(new BackgroundFill(Color.rgb(80, 80, 80), new CornerRadii(8), new Insets(0))));
+            cardPlusCounters.setBorder(new Border(new BorderStroke(Color.rgb(40, 40, 40), BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardPCT.setFont(font3);
+            cardPCT.setStyle(strokeStyle);
             cardPCT.setFill(Color.WHITE);
             cardPCT.setText("-" + -1*cardEntity.getPlusCounters() + "/-" + -1*cardEntity.getPlusCounters());
         }else{
             cardPlusCounters.setVisible(false);
         }
         cardPlusCounters.getChildren().setAll(cardPCT);
+
+        Text cardRCT = new Text();
+        if(cardEntity.getRedCounters() > 0){
+            cardRedCounters.setVisible(true);
+            cardRedCounters.setTextAlignment(TextAlignment.CENTER);
+            cardRedCounters.setTranslateX(.2 * cardWidth);
+            cardRedCounters.setTranslateY(.5 * cardHeight - .2 * cardWidth);
+            cardRedCounters.setPrefWidth(.2 * cardWidth);
+            cardRedCounters.setPrefHeight(.2 * cardWidth);
+            cardRedCounters.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0), new CornerRadii(8), new Insets(0))));
+            cardRedCounters.setBorder(new Border(new BorderStroke(Color.rgb(160, 25, 0), BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardRCT.setFont(font3);
+            cardRCT.setStyle(strokeStyle);
+            cardRCT.setFill(Color.WHITE);
+            cardRCT.setText(Integer.toString(cardEntity.getRedCounters()));
+            cardRCT.setTranslateY(1);
+        }else{
+            cardRedCounters.setVisible(false);
+        }
+        cardRedCounters.getChildren().setAll(cardRCT);
+
+        Text cardGCT = new Text();
+        if(cardEntity.getGreenCounters() > 0){
+            cardGreenCounters.setVisible(true);
+            cardGreenCounters.setTextAlignment(TextAlignment.CENTER);
+            cardGreenCounters.setTranslateX(.4 * cardWidth);
+            cardGreenCounters.setTranslateY(.5 * cardHeight - .2 * cardWidth);
+            cardGreenCounters.setPrefWidth(.2 * cardWidth);
+            cardGreenCounters.setPrefHeight(.2 * cardWidth);
+            cardGreenCounters.setBackground(new Background(new BackgroundFill(Color.rgb(0, 220, 0), new CornerRadii(8), new Insets(0))));
+            cardGreenCounters.setBorder(new Border(new BorderStroke(Color.rgb(29, 143, 2), BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardGCT.setFont(font3);
+            cardGCT.setStyle(strokeStyle);
+            cardGCT.setFill(Color.WHITE);
+            cardGCT.setText(Integer.toString(cardEntity.getGreenCounters()));
+            cardGCT.setTranslateY(1);
+        }else{
+            cardGreenCounters.setVisible(false);
+        }
+        cardGreenCounters.getChildren().setAll(cardGCT);
+
+        Text cardBCT = new Text();
+        if(cardEntity.getBlueCounters() > 0){
+            cardBlueCounters.setVisible(true);
+            cardBlueCounters.setTextAlignment(TextAlignment.CENTER);
+            cardBlueCounters.setTranslateX(.6 * cardWidth);
+            cardBlueCounters.setTranslateY(.5 * cardHeight - .2 * cardWidth);
+            cardBlueCounters.setPrefWidth(.2 * cardWidth);
+            cardBlueCounters.setPrefHeight(.2 * cardWidth);
+            cardBlueCounters.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255), new CornerRadii(8), new Insets(0))));
+            cardBlueCounters.setBorder(new Border(new BorderStroke(Color.rgb(21, 14, 131), BorderStrokeStyle.SOLID, new CornerRadii(8), new BorderWidths(1))));
+            cardBCT.setFont(font3);
+            cardBCT.setStyle(strokeStyle);
+            cardBCT.setFill(Color.WHITE);
+            cardBCT.setText(Integer.toString(cardEntity.getBlueCounters()));
+            cardBCT.setTranslateY(1);
+        }else{
+            cardBlueCounters.setVisible(false);
+        }
+        cardBlueCounters.getChildren().setAll(cardBCT);
 
         ArrayList<ImageView> manaIcons = new ArrayList<>();
         if(showCost) {
@@ -235,7 +325,6 @@ public class CardPane extends BorderPane {
 
             if (manaIcons.size() > 0) {
                 double iconWidth = manaIcons.get(0).getImage().getWidth();
-                double cardWidth = CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080);
                 double allIconWidth = manaIcons.size()*iconWidth;
 
                 if(allIconWidth > cardWidth){
@@ -243,61 +332,38 @@ public class CardPane extends BorderPane {
                     allIconWidth = cardWidth;
                 }
 
-                manaCostHBox.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
+                manaCostHBox.setTranslateY(.68 * cardHeight);
                 manaCostHBox.setTranslateX(cardWidth/2 - allIconWidth/2);
                 for (ImageView icon : manaIcons) {
                     icon.setFitWidth(iconWidth);
                 }
                 manaCostHBox.getChildren().setAll(manaIcons);
 
-                manaCostHBox.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, .7), new CornerRadii(8), new Insets(-2))));
+                manaCostHBox.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, .5), new CornerRadii(8), new Insets(-2))));
             }
             manaCostHBox.setVisible(true);
         }else{
             manaCostHBox.setVisible(false);
         }
 
-        resourceManager.getScene().heightProperty().addListener(e -> {
-            Font _font1 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.12*(resourceManager.getScene().getHeight()/1080));
-            Font _font2 = new Font("Lucida Sans", CardPane.cardHeightAnchor*.14*(resourceManager.getScene().getHeight()/1080));
-            double cardHeight = CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080);
-            double cardWidth = cardHeight*.7;
-
-            cardImageView.setFitHeight(cardHeight);
-            this.setMinHeight(cardImageView.getFitHeight());
-            cardNameTextFlow.setPrefWidth(cardWidth);
-            cardName.setFont(_font1);
-
-            cardPTTextFlow.setPrefWidth(cardWidth);
-            cardPTTextFlow.setTranslateY(cardHeight*.8);
-            cardPT.setFont(_font2);
-
-            cardPlusCounters.setTranslateY(CardPane.cardHeightAnchor * .5 * (resourceManager.getScene().getHeight() / 1080));
-            cardPlusCounters.setPrefWidth(CardPane.cardHeightAnchor*.7*(resourceManager.getScene().getHeight()/1080));
-            cardPCT.setFont(_font2);
-
-            if (manaIcons.size() > 0) {
-                double iconWidth = manaIcons.get(0).getImage().getWidth();
-                double allIconWidth = manaIcons.size()*iconWidth;
-
-                if(allIconWidth > cardWidth){
-                    iconWidth -= (allIconWidth - cardWidth)/manaIcons.size();
-                    allIconWidth = cardWidth;
-                }
-
-                manaCostHBox.setTranslateY(cardHeight*.5);
-                manaCostHBox.setTranslateX(cardWidth/2 - allIconWidth/2);
-                for (ImageView icon : manaIcons) {
-                    icon.setFitWidth(iconWidth);
-                }
-                manaCostHBox.getChildren().setAll(manaIcons);
-            }
-        });
+        if(cardEntity.getCardData().getTypes() != null && cardEntity.getCardData().getTypes().length > 0){
+            String type = cardEntity.getCardData().getTypes()[0];
+            cardSymbolImageView.setImage(resourceManager.getSymbols().get(type));
+            cardSymbolImageView.setFitWidth(.2 * cardWidth);
+            cardSymbolImageView.setTranslateX(.025 * cardWidth);
+            symbolPane.setPrefHeight(.2 * cardWidth);
+            symbolPane.setPrefHeight(.2 * cardWidth);
+            symbolPane.setTranslateY(.8 * cardHeight);
+            symbolPane.setTranslateX(.05 * cardWidth);
+            symbolPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, .4), new CornerRadii(2), new Insets(0))));
+            symbolPane.setBorder(new Border(new BorderStroke(Color.rgb(80, 80, 80, .4), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
+        }
     }
 
     public static CardPane createCardPane(CardEntity entity, ResourceManager resourceManager) {
         CardPane cardPane = new CardPane(entity, resourceManager);
         cardPane.setCenter(cardPane.centerPane);
+        cardPane.symbolPane.getChildren().add(cardPane.cardSymbolImageView);
         cardPane.centerPane.getChildren().setAll(
                 cardPane.cardImageView,
                 cardPane.cardNameTextFlow,
@@ -306,9 +372,14 @@ public class CardPane extends BorderPane {
                 cardPane.cardGreenCounters,
                 cardPane.cardBlueCounters,
                 cardPane.cardRedCounters,
-                cardPane.manaCostHBox
+                cardPane.cardLoyaltyCounters,
+                cardPane.manaCostHBox,
+                cardPane.symbolPane
         );
         cardPane.applyCard();
+        resourceManager.getScene().heightProperty().addListener(e -> {
+            cardPane.applyCard();
+        });
         return cardPane;
     }
 }

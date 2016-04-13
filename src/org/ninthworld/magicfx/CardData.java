@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class CardData {
 
-    private String setCode, name, manaCost, type, rarity, text, power, toughness, multiverseId;
+    private String setCode, name, manaCost, type, rarity, text, power, toughness, multiverseId, loyalty;
     private String[] names, colors, colorIdentity, supertypes, types, subtypes, variations;
     private int cmc;
 
@@ -27,6 +27,7 @@ public class CardData {
         this.power = "";
         this.toughness = "";
         this.multiverseId = "";
+        this.loyalty = "";
         this.names = null;
         this.colors = null;
         this.colorIdentity = null;
@@ -211,5 +212,13 @@ public class CardData {
 
     public void setVariations(String[] variations) {
         this.variations = variations;
+    }
+
+    public String getLoyalty() {
+        return loyalty;
+    }
+
+    public void setLoyalty(String loyalty) {
+        this.loyalty = loyalty;
     }
 }

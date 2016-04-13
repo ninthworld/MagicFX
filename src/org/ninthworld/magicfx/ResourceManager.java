@@ -4,11 +4,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import net.coobird.thumbnailator.Thumbnails;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -22,11 +25,10 @@ import java.util.jar.JarFile;
  * Created by NinthWorld on 4/8/2016.
  */
 public class ResourceManager {
-
-    private static final String hqCardCachePath = "../DeckEditor/res/cache/hqcards/";
+    private static final String hqCardCachePath = "res/cache/hqcards/"; //"../DeckEditor/res/cache/hqcards/"; //
     private static final String lqCardCachePath = "res/cache/lqcards/";
     private static final String allSetsJSONPath = "/json/AllSets.json";
-    private static final String cardBackPath = "/symbols/back.jpg";
+    private static final String cardBackPath = "res/symbols/back.jpg";
     private static final String symbolsDir = "symbols";
     private static final String backgroundPath = "/bg/bg5.jpg";
 
@@ -34,13 +36,15 @@ public class ResourceManager {
     private ImageView cardPreview;
 
     private ArrayList<CardData> allCards;
-    private HashMap<CardData, Image> cardImages;
+    private HashMap<CardData, BufferedImage> cardImages;
     private HashMap<String, Image> symbols;
     private HashMap<String, Color> rarityColors;
 
-    private Image cardBackImage;
+    private BufferedImage cardBackImage;
     private Image backgroundImage;
     private Color guiPaneBorderColor, guiPaneFillColor;
+
+    public String lucidaFontURI;
 
     public ResourceManager(Scene scene){
         this.scene = scene;
@@ -53,6 +57,7 @@ public class ResourceManager {
         this.backgroundImage = null;
         this.cardBackImage = null;
         this.guiPaneBorderColor = this.guiPaneFillColor = Color.BLACK;
+        this.lucidaFontURI = new File("res/fonts/LucidaSansDemiBold.ttf").toURI().toString();
     }
 
     public HashMap<String, Image> getSymbols(){
@@ -76,7 +81,7 @@ public class ResourceManager {
             setGuiPaneBorderColor(Color.rgb(0, 0, 0, 0.6));
             setGuiPaneFillColor(Color.rgb(255, 255, 255, 0.2));
 
-            setCardBackImage(new Image(getClass().getResource(cardBackPath).toString()));
+            setCardBackBufferedImage(ImageIO.read(new File(cardBackPath)));
             setBackgroundImage(new Image(getClass().getResource(backgroundPath).toString()));
 
             loadAllSets();
@@ -88,7 +93,24 @@ public class ResourceManager {
         }
     }
 
-    public Image getCardImage(CardData card) {
+    public Image getCardImage(CardData card, double cardWidth, double cardHeight){
+        Image cardImage = null;
+        BufferedImage img = getCardBufferedImage(card);
+        try {
+            if(img != null) {
+                BufferedImage bImg = Thumbnails.of(img).size((int) cardWidth, (int) cardHeight).asBufferedImage();
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(bImg, "PNG", os);
+                cardImage = new Image(new ByteArrayInputStream(os.toByteArray()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return cardImage;
+    }
+
+    public BufferedImage getCardBufferedImage(CardData card) {
         if(!cardImages.containsKey(card)) {
             File hqCard = new File(hqCardCachePath + card.getSetCode() + "/" + card.getNameUnmodified().replaceAll("\\\"", "") + (card.hasVariations() ? card.getVariationNum() : "") + ".full.jpg");
             if (!hqCard.exists()) {
@@ -111,14 +133,31 @@ public class ResourceManager {
                         FileOutputStream fos = new FileOutputStream(lqCard);
                         fos.write(out.toByteArray());
                         fos.close();
+
+                        BufferedImage img = ImageIO.read(lqCard);
+                        if(img != null) {
+                            ByteArrayOutputStream os = new ByteArrayOutputStream();
+                            ImageIO.write(img.getSubimage(6, 6, 223 - 12, 310 - 12), "PNG", os);
+                            os.writeTo(new FileOutputStream(lqCard));
+                            os.flush();
+                            os.close();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
 
-                cardImages.put(card, new Image(lqCard.toURI().toString()));
+                try {
+                    cardImages.put(card, ImageIO.read(lqCard));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                cardImages.put(card, new Image(hqCard.toURI().toString()));
+                try {
+                    cardImages.put(card, ImageIO.read(hqCard));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -171,6 +210,10 @@ public class ResourceManager {
 
                     if(cardObj.containsKey("toughness")){
                         cardData.setToughness(cardObj.get("toughness").toString());
+                    }
+
+                    if(cardObj.containsKey("loyalty")){
+                        cardData.setLoyalty(cardObj.get("loyalty").toString());
                     }
 
                     if(cardObj.containsKey("names")){
@@ -310,11 +353,28 @@ public class ResourceManager {
         return new CardData();
     }
 
-    public Image getCardBackImage() {
+    public Image getCardBackImage(double width, double height){
+        Image cardImage = null;
+        BufferedImage img = getCardBackBufferedImage();
+        try {
+            if(img != null) {
+                BufferedImage bImg = Thumbnails.of(img).size((int) width, (int) height).asBufferedImage();
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(bImg, "PNG", os);
+                cardImage = new Image(new ByteArrayInputStream(os.toByteArray()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return cardImage;
+    }
+
+    public BufferedImage getCardBackBufferedImage() {
         return cardBackImage;
     }
 
-    public void setCardBackImage(Image cardBackImage) {
+    public void setCardBackBufferedImage(BufferedImage cardBackImage) {
         this.cardBackImage = cardBackImage;
     }
 
