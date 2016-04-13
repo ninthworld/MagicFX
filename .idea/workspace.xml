@@ -2,82 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/thumbnailator-0.4.8.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/EDH-Simic-Vorel.jdeck" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/ARB/Lorescale Coatl.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Alchemist's Refuge.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Druids' Repository.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BFZ/Forest6.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BFZ/Island5.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BNG/Kiora's Follower.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BNG/Kiora, the Crashing Wave.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Bred for the Hunt.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Mending Touch.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Progenitor Mimic.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Renegade Krasis.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Vorel of the Hull Clade.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DIS/Fertile Imagination.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DIS/Simic Sky Swallower.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DIS/Trygon Predator.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DIS/Vigean Hydropon.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DTK/Explosive Vegetation.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DTK/Naturalize.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/FUT/Cloud Key.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Alpha Authority.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Bioshift.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Biovisionary.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Burst of Strength.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Diluvian Primordial.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Elusive Krasis.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Experiment One.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Forced Adaptation.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Illusionist's Bracers.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Miming Slime.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Nimbus Swimmer.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Prime Speaker Zegana.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Sapphire Drake.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Simic Manipulator.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Sylvan Primordial.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Unexpected Results.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Urban Evolution.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/ISD/Ambush Viper.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/JOU/Kruphix, God of Horizons.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/JOU/Scourge of Fleets.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Acidic Slime.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Farseek.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Fog Bank.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Murder.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Quirion Dryad.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Reliquary Tower.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Silklash Spider.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M14/Clone.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M14/Shimmering Grotto.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M15/Encrust.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/NPH/Phyrexian Metamorph.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RAV/Doubling Season.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RTR/Death's Presence.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/THS/Sealock Monster.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/THS/Temple of Mystery.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/THS/Thassa, God of the Sea.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/TSP/Careful Consideration.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/TSP/Search for Tomorrow.full.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardData.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardEntity.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardEntity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardPane.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardPane.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Drag.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Drag.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Main.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Player.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/PlayerArea.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/PlayerArea.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Rect.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Rect.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/ResourceManager.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/ResourceManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/SetData.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/SetData.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardData.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardEntity.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/PlayerArea.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/PlayerArea.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/ResourceManager.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/ResourceManager.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -145,8 +73,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="96" column="40" selection-start-line="96" selection-start-column="40" selection-end-line="96" selection-end-column="40" />
+            <state relative-caret-position="249">
+              <caret line="33" column="57" selection-start-line="33" selection-start-column="57" selection-end-line="33" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,87 +85,17 @@
       <file leaf-file-name="PlayerArea.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/PlayerArea.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="551" column="33" selection-start-line="551" selection-start-column="33" selection-end-line="551" selection-end-column="33" />
+            <state relative-caret-position="187">
+              <caret line="826" column="61" selection-start-line="826" selection-start-column="61" selection-end-line="826" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="n#!!doc;n#getBattlefieldTextFlow#0;n#PlayerArea#0" expanded="false" />
-                <element signature="e#2180#2181#0" expanded="true" />
-                <element signature="e#2222#2223#0" expanded="true" />
-                <element signature="e#2294#2295#0" expanded="true" />
-                <element signature="e#2356#2357#0" expanded="true" />
-                <element signature="e#2398#2399#0" expanded="true" />
-                <element signature="e#2434#2435#0" expanded="true" />
-                <element signature="e#2494#2495#0" expanded="true" />
-                <element signature="e#2544#2545#0" expanded="true" />
-                <element signature="e#2585#2586#0" expanded="true" />
-                <element signature="e#2620#2621#0" expanded="true" />
-                <element signature="e#2678#2679#0" expanded="true" />
-                <element signature="e#2726#2727#0" expanded="true" />
-                <element signature="e#2772#2773#0" expanded="true" />
-                <element signature="e#2812#2813#0" expanded="true" />
-                <element signature="e#2880#2881#0" expanded="true" />
-                <element signature="e#2938#2939#0" expanded="true" />
-                <element signature="e#4785#4786#0" expanded="true" />
-                <element signature="e#4821#4822#0" expanded="true" />
-                <element signature="method#updateBattlefieldPane#0;class#PlayerArea#0" expanded="false" />
-                <element signature="method#updateHandPane#0;class#PlayerArea#0" expanded="false" />
-                <element signature="method#updateExilePane#0;class#PlayerArea#0" expanded="false" />
                 <element signature="method#updateCommanderPane#0;class#PlayerArea#0" expanded="false" />
                 <element signature="method#addSelectedChild#0;class#PlayerArea#0" expanded="false" />
                 <element signature="method#removeAllSelected#0;class#PlayerArea#0" expanded="false" />
                 <element signature="method#removeAllDragged#0;class#PlayerArea#0" expanded="false" />
                 <element signature="method#createBottomPlayerArea#0;class#PlayerArea#0" expanded="false" />
                 <element signature="method#createTopPlayerArea#0;class#PlayerArea#0" expanded="false" />
-                <marker date="1460531827739" expanded="false" signature="3374:3385" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3407:3413" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3473:3484" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3521:3527" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3565:3576" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3599:3605" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3663:3674" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3713:3719" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3751:3762" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3779:3785" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3831:3842" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3869:3875" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3906:3917" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="3933:3939" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="3983:3994" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4019:4025" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4097:4103" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4161:4172" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4207:4213" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4246:4257" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4275:4281" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4329:4340" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4369:4375" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4411:4422" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4443:4449" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4503:4514" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4549:4555" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4598:4609" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4626:4632" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4689:4700" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4727:4733" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4891:4902" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="4937:4943" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="4989:5000" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5020:5026" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5089:5100" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5133:5139" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5175:5186" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5207:5213" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5267:5278" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5313:5319" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5350:5361" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5377:5383" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5427:5438" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5463:5469" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5500:5511" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5527:5533" placeholder=" }" />
-                <marker date="1460531827739" expanded="false" signature="5577:5588" placeholder=" { " />
-                <marker date="1460531827739" expanded="false" signature="5613:5619" placeholder=" }" />
               </folding>
             </state>
           </provider>
@@ -246,8 +104,8 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="708">
-              <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+            <state relative-caret-position="303">
+              <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -256,7 +114,7 @@
       <file leaf-file-name="ResourceManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/ResourceManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3137">
+            <state relative-caret-position="2346">
               <caret line="146" column="21" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -270,7 +128,7 @@
       <file leaf-file-name="DeckLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/DeckLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="618">
+            <state relative-caret-position="414">
               <caret line="194" column="50" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
               <folding />
             </state>
@@ -280,12 +138,10 @@
       <file leaf-file-name="CardPane.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
+            <state relative-caret-position="1459">
               <caret line="129" column="115" selection-start-line="129" selection-start-column="44" selection-end-line="129" selection-end-column="115" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3478#3479#0" expanded="true" />
-                <element signature="e#3508#3509#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -309,7 +165,7 @@
       <file leaf-file-name="CardEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/CardEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="255">
               <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
               <folding>
                 <element signature="e#1871#1872#0" expanded="true" />
@@ -353,10 +209,10 @@
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardEntity.java" />
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardData.java" />
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/DeckLoader.java" />
-        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java" />
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java" />
-        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java" />
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/ResourceManager.java" />
+        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java" />
+        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java" />
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/PlayerArea.java" />
       </list>
     </option>
@@ -365,8 +221,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -398,9 +254,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -780,8 +636,8 @@
     <option name="totallyTimeSpent" value="1302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -791,11 +647,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25052854" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24921136" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16979167" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16910689" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -845,82 +701,12 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#getBattlefieldTextFlow#0;n#PlayerArea#0" expanded="false" />
-            <element signature="e#2180#2181#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2294#2295#0" expanded="true" />
-            <element signature="e#2356#2357#0" expanded="true" />
-            <element signature="e#2398#2399#0" expanded="true" />
-            <element signature="e#2434#2435#0" expanded="true" />
-            <element signature="e#2494#2495#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2620#2621#0" expanded="true" />
-            <element signature="e#2678#2679#0" expanded="true" />
-            <element signature="e#2726#2727#0" expanded="true" />
-            <element signature="e#2772#2773#0" expanded="true" />
-            <element signature="e#2812#2813#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-            <element signature="e#2938#2939#0" expanded="true" />
-            <element signature="e#4785#4786#0" expanded="true" />
-            <element signature="e#4821#4822#0" expanded="true" />
-            <element signature="method#updateBattlefieldPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateHandPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateExilePane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#updateCommanderPane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#addSelectedChild#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllSelected#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllDragged#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createBottomPlayerArea#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createTopPlayerArea#0;class#PlayerArea#0" expanded="false" />
-            <marker date="1460531827739" expanded="false" signature="3374:3385" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3407:3413" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3473:3484" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3521:3527" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3565:3576" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3599:3605" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3663:3674" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3713:3719" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3751:3762" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3779:3785" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3831:3842" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3869:3875" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3906:3917" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3933:3939" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3983:3994" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4019:4025" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4097:4103" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4161:4172" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4207:4213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4246:4257" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4275:4281" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4329:4340" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4369:4375" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4411:4422" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4443:4449" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4503:4514" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4549:4555" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4598:4609" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4626:4632" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4689:4700" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4727:4733" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4891:4902" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4937:4943" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4989:5000" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5020:5026" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5089:5100" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5133:5139" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5175:5186" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5207:5213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5267:5278" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5313:5319" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5350:5361" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5377:5383" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5427:5438" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5463:5469" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5500:5511" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5527:5533" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5577:5588" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5613:5619" placeholder=" }" />
           </folding>
         </state>
       </provider>
@@ -951,8 +737,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-            <element signature="e#3508#3509#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1000,82 +784,12 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#getBattlefieldTextFlow#0;n#PlayerArea#0" expanded="false" />
-            <element signature="e#2180#2181#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2294#2295#0" expanded="true" />
-            <element signature="e#2356#2357#0" expanded="true" />
-            <element signature="e#2398#2399#0" expanded="true" />
-            <element signature="e#2434#2435#0" expanded="true" />
-            <element signature="e#2494#2495#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2620#2621#0" expanded="true" />
-            <element signature="e#2678#2679#0" expanded="true" />
-            <element signature="e#2726#2727#0" expanded="true" />
-            <element signature="e#2772#2773#0" expanded="true" />
-            <element signature="e#2812#2813#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-            <element signature="e#2938#2939#0" expanded="true" />
-            <element signature="e#4785#4786#0" expanded="true" />
-            <element signature="e#4821#4822#0" expanded="true" />
-            <element signature="method#updateBattlefieldPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateHandPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateExilePane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#updateCommanderPane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#addSelectedChild#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllSelected#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllDragged#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createBottomPlayerArea#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createTopPlayerArea#0;class#PlayerArea#0" expanded="false" />
-            <marker date="1460531827739" expanded="false" signature="3374:3385" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3407:3413" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3473:3484" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3521:3527" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3565:3576" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3599:3605" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3663:3674" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3713:3719" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3751:3762" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3779:3785" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3831:3842" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3869:3875" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3906:3917" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3933:3939" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3983:3994" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4019:4025" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4097:4103" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4161:4172" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4207:4213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4246:4257" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4275:4281" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4329:4340" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4369:4375" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4411:4422" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4443:4449" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4503:4514" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4549:4555" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4598:4609" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4626:4632" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4689:4700" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4727:4733" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4891:4902" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4937:4943" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4989:5000" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5020:5026" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5089:5100" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5133:5139" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5175:5186" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5207:5213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5267:5278" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5313:5319" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5350:5361" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5377:5383" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5427:5438" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5463:5469" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5500:5511" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5527:5533" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5577:5588" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5613:5619" placeholder=" }" />
           </folding>
         </state>
       </provider>
@@ -1106,8 +820,6 @@
           <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-            <element signature="e#3508#3509#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1155,82 +867,12 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#getBattlefieldTextFlow#0;n#PlayerArea#0" expanded="false" />
-            <element signature="e#2180#2181#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2294#2295#0" expanded="true" />
-            <element signature="e#2356#2357#0" expanded="true" />
-            <element signature="e#2398#2399#0" expanded="true" />
-            <element signature="e#2434#2435#0" expanded="true" />
-            <element signature="e#2494#2495#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2620#2621#0" expanded="true" />
-            <element signature="e#2678#2679#0" expanded="true" />
-            <element signature="e#2726#2727#0" expanded="true" />
-            <element signature="e#2772#2773#0" expanded="true" />
-            <element signature="e#2812#2813#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-            <element signature="e#2938#2939#0" expanded="true" />
-            <element signature="e#4785#4786#0" expanded="true" />
-            <element signature="e#4821#4822#0" expanded="true" />
-            <element signature="method#updateBattlefieldPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateHandPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateExilePane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#updateCommanderPane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#addSelectedChild#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllSelected#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllDragged#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createBottomPlayerArea#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createTopPlayerArea#0;class#PlayerArea#0" expanded="false" />
-            <marker date="1460531827739" expanded="false" signature="3374:3385" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3407:3413" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3473:3484" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3521:3527" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3565:3576" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3599:3605" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3663:3674" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3713:3719" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3751:3762" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3779:3785" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3831:3842" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3869:3875" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3906:3917" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3933:3939" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3983:3994" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4019:4025" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4097:4103" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4161:4172" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4207:4213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4246:4257" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4275:4281" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4329:4340" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4369:4375" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4411:4422" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4443:4449" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4503:4514" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4549:4555" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4598:4609" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4626:4632" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4689:4700" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4727:4733" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4891:4902" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4937:4943" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4989:5000" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5020:5026" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5089:5100" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5133:5139" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5175:5186" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5207:5213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5267:5278" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5313:5319" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5350:5361" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5377:5383" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5427:5438" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5463:5469" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5500:5511" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5527:5533" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5577:5588" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5613:5619" placeholder=" }" />
           </folding>
         </state>
       </provider>
@@ -1261,8 +903,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-            <element signature="e#3508#3509#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1310,82 +950,12 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#getBattlefieldTextFlow#0;n#PlayerArea#0" expanded="false" />
-            <element signature="e#2180#2181#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2294#2295#0" expanded="true" />
-            <element signature="e#2356#2357#0" expanded="true" />
-            <element signature="e#2398#2399#0" expanded="true" />
-            <element signature="e#2434#2435#0" expanded="true" />
-            <element signature="e#2494#2495#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2620#2621#0" expanded="true" />
-            <element signature="e#2678#2679#0" expanded="true" />
-            <element signature="e#2726#2727#0" expanded="true" />
-            <element signature="e#2772#2773#0" expanded="true" />
-            <element signature="e#2812#2813#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-            <element signature="e#2938#2939#0" expanded="true" />
-            <element signature="e#4785#4786#0" expanded="true" />
-            <element signature="e#4821#4822#0" expanded="true" />
-            <element signature="method#updateBattlefieldPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateHandPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateExilePane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#updateCommanderPane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#addSelectedChild#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllSelected#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllDragged#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createBottomPlayerArea#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createTopPlayerArea#0;class#PlayerArea#0" expanded="false" />
-            <marker date="1460531827739" expanded="false" signature="3374:3385" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3407:3413" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3473:3484" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3521:3527" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3565:3576" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3599:3605" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3663:3674" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3713:3719" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3751:3762" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3779:3785" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3831:3842" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3869:3875" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3906:3917" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3933:3939" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3983:3994" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4019:4025" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4097:4103" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4161:4172" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4207:4213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4246:4257" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4275:4281" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4329:4340" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4369:4375" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4411:4422" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4443:4449" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4503:4514" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4549:4555" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4598:4609" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4626:4632" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4689:4700" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4727:4733" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4891:4902" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4937:4943" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4989:5000" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5020:5026" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5089:5100" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5133:5139" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5175:5186" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5207:5213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5267:5278" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5313:5319" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5350:5361" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5377:5383" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5427:5438" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5463:5469" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5500:5511" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5527:5533" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5577:5588" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5613:5619" placeholder=" }" />
           </folding>
         </state>
       </provider>
@@ -1416,8 +986,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-            <element signature="e#3508#3509#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1602,7 +1170,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/CardEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="255">
           <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
           <folding>
             <element signature="e#1871#1872#0" expanded="true" />
@@ -1613,37 +1181,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="129" column="115" selection-start-line="129" selection-start-column="44" selection-end-line="129" selection-end-column="115" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-            <element signature="e#3508#3509#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/DeckLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="194" column="50" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/ResourceManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3137">
+        <state relative-caret-position="2346">
           <caret line="146" column="21" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1655,97 +1195,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="96" column="40" selection-start-line="96" selection-start-column="40" selection-end-line="96" selection-end-column="40" />
+        <state relative-caret-position="249">
+          <caret line="33" column="57" selection-start-line="33" selection-start-column="57" selection-end-line="33" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1459">
+          <caret line="129" column="115" selection-start-line="129" selection-start-column="44" selection-end-line="129" selection-end-column="115" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/DeckLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="194" column="50" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/PlayerArea.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="551" column="33" selection-start-line="551" selection-start-column="33" selection-end-line="551" selection-end-column="33" />
+        <state relative-caret-position="187">
+          <caret line="826" column="61" selection-start-line="826" selection-start-column="61" selection-end-line="826" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#getBattlefieldTextFlow#0;n#PlayerArea#0" expanded="false" />
-            <element signature="e#2180#2181#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2294#2295#0" expanded="true" />
-            <element signature="e#2356#2357#0" expanded="true" />
-            <element signature="e#2398#2399#0" expanded="true" />
-            <element signature="e#2434#2435#0" expanded="true" />
-            <element signature="e#2494#2495#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2620#2621#0" expanded="true" />
-            <element signature="e#2678#2679#0" expanded="true" />
-            <element signature="e#2726#2727#0" expanded="true" />
-            <element signature="e#2772#2773#0" expanded="true" />
-            <element signature="e#2812#2813#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-            <element signature="e#2938#2939#0" expanded="true" />
-            <element signature="e#4785#4786#0" expanded="true" />
-            <element signature="e#4821#4822#0" expanded="true" />
-            <element signature="method#updateBattlefieldPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateHandPane#0;class#PlayerArea#0" expanded="false" />
-            <element signature="method#updateExilePane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#updateCommanderPane#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#addSelectedChild#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllSelected#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#removeAllDragged#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createBottomPlayerArea#0;class#PlayerArea#0" expanded="false" />
             <element signature="method#createTopPlayerArea#0;class#PlayerArea#0" expanded="false" />
-            <marker date="1460531827739" expanded="false" signature="3374:3385" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3407:3413" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3473:3484" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3521:3527" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3565:3576" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3599:3605" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3663:3674" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3713:3719" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3751:3762" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3779:3785" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3831:3842" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3869:3875" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3906:3917" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="3933:3939" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="3983:3994" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4019:4025" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4097:4103" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4161:4172" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4207:4213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4246:4257" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4275:4281" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4329:4340" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4369:4375" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4411:4422" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4443:4449" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4503:4514" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4549:4555" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4598:4609" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4626:4632" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4689:4700" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4727:4733" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4891:4902" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="4937:4943" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="4989:5000" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5020:5026" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5089:5100" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5133:5139" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5175:5186" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5207:5213" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5267:5278" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5313:5319" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5350:5361" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5377:5383" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5427:5438" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5463:5469" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5500:5511" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5527:5533" placeholder=" }" />
-            <marker date="1460531827739" expanded="false" signature="5577:5588" placeholder=" { " />
-            <marker date="1460531827739" expanded="false" signature="5613:5619" placeholder=" }" />
           </folding>
         </state>
       </provider>

@@ -8,6 +8,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.File;
 
 public class Main extends Application {
@@ -27,7 +29,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/magicfx.fxml"));
         primaryStage.setTitle("MagicFX");
-        primaryStage.setScene(new Scene(root, 1440, 960));
+        double windowWidth = .8*Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        double windowHeight = .8*Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        primaryStage.setScene(new Scene(root, windowWidth, windowHeight));
         primaryStage.show();
         scene = primaryStage.getScene();
 

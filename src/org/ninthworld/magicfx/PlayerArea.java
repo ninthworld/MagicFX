@@ -332,11 +332,12 @@ public class PlayerArea {
         }
 
         if(toPane == exilePane){
-            player.getExile().add(newCardEntity.getCardData());
+            player.getExile().add(newCardEntity);
 
             CardPane newCardPane = CardPane.createCardPane(newCardEntity, resourceManager);
             newCardPane.setTranslateX(toCard.getTranslateX());
             newCardPane.setTranslateY(toCard.getTranslateY());
+            newCardPane.setShowCost(false);
 
             addSelectedChild(selectedNodes, newCardPane);
 
@@ -372,11 +373,26 @@ public class PlayerArea {
     private void updateBattlefieldPane(ResourceManager resourceManager){
         double parentWidth = (battlefieldPane.getWidth() > 0 ? battlefieldPane.getWidth() : battlefieldPane.getPrefWidth());
         double parentHeight = (battlefieldPane.getHeight() > 0 ? battlefieldPane.getHeight() : battlefieldPane.getPrefHeight());
+
+        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
+
+        battlefieldTextFlow.setTextAlignment(TextAlignment.LEFT);
+        battlefieldTextFlow.setPrefWidth(parentWidth);
+        battlefieldTextFlow.setTranslateY(parentHeight*.035);
+        battlefieldTextFlow.setTranslateX(parentWidth*.02);
+        Text text = new Text();
+        text.setFont(font1);
+        text.setStyle(strokeStyle);
+        text.setFill(Color.rgb(255, 255, 255, 0.6));
+        text.setText("Battlefield (" + player.getBattlefield().size() + ")");
+        if(parentWidth > 0) {
+            battlefieldTextFlow.getChildren().setAll(text);
+        }
+
         ArrayList<Node> bNodes = new ArrayList<>();
         battlefieldPane.getChildren().forEach(child -> {
-            if(child instanceof CardPane){
-                bNodes.add(child);
-            }
+            bNodes.add(child);
         });
         Collections.sort(bNodes, (n1, n2) -> {
             if(n1.getTranslateY() < n2.getTranslateY() || n1.getTranslateX() < n2.getTranslateX()){
@@ -390,12 +406,31 @@ public class PlayerArea {
     private void updateHandPane(ResourceManager resourceManager){
         double parentWidth = (handPane.getWidth() > 0 ? handPane.getWidth() : handPane.getPrefWidth());
         double parentHeight = (handPane.getHeight() > 0 ? handPane.getHeight() : handPane.getPrefHeight());
+
+        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
+
+        handTextFlow.setTextAlignment(TextAlignment.LEFT);
+        handTextFlow.setPrefWidth(parentWidth);
+        handTextFlow.setTranslateY(parentHeight*.08);
+        handTextFlow.setTranslateX(parentWidth*.02);
+        Text text = new Text();
+        text.setFont(font1);
+        text.setStyle(strokeStyle);
+        text.setFill(Color.rgb(255, 255, 255, 0.6));
+        text.setText("Hand (" + player.getHand().size() + ")");
+        if(parentWidth > 0) {
+            handTextFlow.getChildren().setAll(text);
+        }
+
+        int cardPaneCount = 0;
         ArrayList<Node> hNodes = new ArrayList<>();
-        handPane.getChildren().forEach(child -> {
+        for(Node child : handPane.getChildren()){
+            hNodes.add(child);
             if(child instanceof CardPane){
-                hNodes.add(child);
+                cardPaneCount++;
             }
-        });
+        }
         Collections.sort(hNodes, (n1, n2) -> {
             if(n1.getTranslateX() < n2.getTranslateX()){
                 return -1;
@@ -403,25 +438,43 @@ public class PlayerArea {
             return 0;
         });
 
-        hNodes.forEach(node -> {
-            Bounds nodeBounds = node.getLayoutBounds();
-            double padding = 8;
-            if(hNodes.size()*(nodeBounds.getWidth()+padding) > parentWidth){
-                padding -= (hNodes.size()*(nodeBounds.getWidth()+padding) - parentWidth + nodeBounds.getWidth()/2)/hNodes.size();
+        int index = 0;
+        for(Node node : hNodes){
+            if(node instanceof CardPane) {
+                Bounds nodeBounds = node.getLayoutBounds();
+                double padding = 8;
+                if (cardPaneCount * (nodeBounds.getWidth() + padding) > parentWidth) {
+                    padding -= (cardPaneCount * (nodeBounds.getWidth() + padding) - parentWidth + nodeBounds.getWidth() / 2) / cardPaneCount;
+                }
+                node.setTranslateX(parentWidth / 2 - ((nodeBounds.getWidth() + padding) * cardPaneCount) / 2 + (nodeBounds.getWidth() + padding) * index);
+                node.setTranslateY(parentHeight / 2 - nodeBounds.getHeight() / 2);
+                index++;
             }
-            node.setTranslateX(parentWidth/2 - ((nodeBounds.getWidth() + padding)*hNodes.size())/2 + (nodeBounds.getWidth() + padding)*hNodes.indexOf(node));
-            node.setTranslateY(parentHeight/2 - nodeBounds.getHeight()/2);
-        });
+        }
     }
 
     private void updateExilePane(ResourceManager resourceManager){
         double parentWidth = (exilePane.getWidth() > 0 ? exilePane.getWidth() : exilePane.getPrefWidth());
         double parentHeight = (exilePane.getHeight() > 0 ? exilePane.getHeight() : exilePane.getPrefHeight());
+
+        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
+
+        exileTextFlow.setTextAlignment(TextAlignment.CENTER);
+        exileTextFlow.setPrefWidth(parentWidth);
+        exileTextFlow.setTranslateY(parentHeight*.04);
+        Text text = new Text();
+        text.setFont(font1);
+        text.setStyle(strokeStyle);
+        text.setFill(Color.rgb(255, 255, 255, 0.6));
+        text.setText("Exile (" + player.getExile().size() + ")");
+        if(parentWidth > 0) {
+            exileTextFlow.getChildren().setAll(text);
+        }
+
         ArrayList<Node> eNodes = new ArrayList<>();
         exilePane.getChildren().forEach(child -> {
-            if(child instanceof CardPane){
-                eNodes.add(child);
-            }
+            eNodes.add(child);
         });
         Collections.sort(eNodes, (n1, n2) -> {
             if(n1.getTranslateY() < n2.getTranslateY()){
@@ -432,8 +485,10 @@ public class PlayerArea {
         exilePane.getChildren().setAll(eNodes);
 
         eNodes.forEach(node -> {
-            Bounds nodeBounds = node.getLayoutBounds();
-            node.setTranslateX(parentWidth/2 - nodeBounds.getWidth()/2);
+            if(node instanceof CardPane) {
+                Bounds nodeBounds = node.getLayoutBounds();
+                node.setTranslateX(parentWidth / 2 - nodeBounds.getWidth() / 2);
+            }
         });
     }
 
@@ -567,28 +622,75 @@ public class PlayerArea {
                 }
 
                 if (e.getCode() == KeyCode.CLOSE_BRACKET) {
-                    if (e.isShiftDown()) {
+                    if (e.isShiftDown() && !e.isControlDown() && !e.isAltDown()) {
                         for (CardPane card : selectedNodes) {
-                            if (card.getCardEntity().getCardData().getType().toLowerCase().contains("planeswalker")) {
-                                int loyalty = card.getCardEntity().getLoyaltyCounters();
-                                card.setLoyaltyCounters(loyalty + 1);
-                            } else {
-                                int counters = card.getCardEntity().getPlusCounters();
-                                card.setPlusCounters(counters + 1);
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                if (card.getCardEntity().getCardData().getType().toLowerCase().contains("planeswalker")) {
+                                    int loyalty = card.getCardEntity().getLoyaltyCounters();
+                                    card.setLoyaltyCounters(loyalty + 1);
+                                } else {
+                                    int counters = card.getCardEntity().getPlusCounters();
+                                    card.setPlusCounters(counters + 1);
+                                }
+                            }
+                        }
+                    }else if(!e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
+                        for (CardPane card : selectedNodes) {
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                card.setRedCounters(card.getCardEntity().getRedCounters() + 1);
+                            }
+                        }
+                    }else if(e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
+                        for (CardPane card : selectedNodes) {
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                card.setBlueCounters(card.getCardEntity().getBlueCounters() + 1);
+                            }
+                        }
+                    }else if(!e.isShiftDown() && e.isControlDown() && e.isAltDown()){
+                        for (CardPane card : selectedNodes) {
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                card.setGreenCounters(card.getCardEntity().getGreenCounters() + 1);
                             }
                         }
                     }
+
                 } else if (e.getCode() == KeyCode.OPEN_BRACKET) {
-                    if (e.isShiftDown()) {
+                    if (e.isShiftDown() && !e.isControlDown() && !e.isAltDown()) {
                         for (CardPane card : selectedNodes) {
-                            if (card.getCardEntity().getCardData().getType().toLowerCase().contains("planeswalker")) {
-                                int loyalty = card.getCardEntity().getLoyaltyCounters();
-                                if (loyalty > 0) {
-                                    card.setLoyaltyCounters(loyalty - 1);
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                if (card.getCardEntity().getCardData().getType().toLowerCase().contains("planeswalker")) {
+                                    int loyalty = card.getCardEntity().getLoyaltyCounters();
+                                    if (loyalty > 0) {
+                                        card.setLoyaltyCounters(loyalty - 1);
+                                    }
+                                } else {
+                                    int counters = card.getCardEntity().getPlusCounters();
+                                    card.setPlusCounters(counters - 1);
                                 }
-                            } else {
-                                int counters = card.getCardEntity().getPlusCounters();
-                                card.setPlusCounters(counters - 1);
+                            }
+                        }
+                    }else if(!e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
+                        for (CardPane card : selectedNodes) {
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                if (card.getCardEntity().getRedCounters() > 0) {
+                                    card.setRedCounters(card.getCardEntity().getRedCounters() - 1);
+                                }
+                            }
+                        }
+                    }else if(e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
+                        for (CardPane card : selectedNodes) {
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                if (card.getCardEntity().getBlueCounters() > 0) {
+                                    card.setBlueCounters(card.getCardEntity().getBlueCounters() - 1);
+                                }
+                            }
+                        }
+                    }else if(!e.isShiftDown() && e.isControlDown() && e.isAltDown()){
+                        for (CardPane card : selectedNodes) {
+                            if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
+                                if (card.getCardEntity().getGreenCounters() > 0) {
+                                    card.setGreenCounters(card.getCardEntity().getGreenCounters() - 1);
+                                }
                             }
                         }
                     }
@@ -721,6 +823,9 @@ public class PlayerArea {
                             CardPane newCardPane = CardPane.createCardPane(srcPane.getCardEntity(), resourceManager);
                             newCardPane.setTranslateX(cardPane.getTranslateX());
                             newCardPane.setTranslateY(cardPane.getTranslateY());
+                            if(!srcPane.isShowCost()){
+                                newCardPane.setShowCost(false);
+                            }
 
                             Drag drag = new Drag(srcPane, newCardPane, (Pane) srcPane.getParent(), (Pane) srcPane.getParent(), e.getX(), e.getY());
                             ((Pane) srcPane.getParent()).getChildren().add(drag.drag);
@@ -938,7 +1043,7 @@ public class PlayerArea {
         playerArea.getDeckPane().getChildren().add(playerArea.getDeckTextFlow());
         playerArea.getGraveyardPane().getChildren().add(playerArea.getGraveyardTextFlow());
         playerArea.getBattlefieldPane().getChildren().add(playerArea.getBattlefieldTextFlow());
-        playerArea.getExilePane().getChildren().add(playerArea.getBattlefieldTextFlow());
+        playerArea.getExilePane().getChildren().add(playerArea.getExileTextFlow());
         playerArea.getHandPane().getChildren().add(playerArea.getHandTextFlow());
         playerArea.getCommanderPane().getChildren().add(playerArea.getCommanderTextFlow());
 

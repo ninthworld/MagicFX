@@ -13,8 +13,8 @@ public class Player {
     private DeckData deckData;
 
     private CardData commander;
-    private ArrayList<CardData> hand, graveyard, deck, exile;
-    private ArrayList<CardEntity> battlefield;
+    private ArrayList<CardData> hand, graveyard, deck;
+    private ArrayList<CardEntity> battlefield, exile;
 
     private String name;
     private int life, poison, damage;
@@ -106,11 +106,11 @@ public class Player {
         this.deck = deck;
     }
 
-    public ArrayList<CardData> getExile() {
+    public ArrayList<CardEntity> getExile() {
         return exile;
     }
 
-    public void setExile(ArrayList<CardData> exile) {
+    public void setExile(ArrayList<CardEntity> exile) {
         this.exile = exile;
     }
 
