@@ -1,9 +1,7 @@
 package org.ninthworld.magicfx;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Stack;
 
 /**
  * Created by NinthWorld on 4/8/2016.

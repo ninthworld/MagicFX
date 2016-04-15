@@ -1,6 +1,5 @@
 package org.ninthworld.magicfx;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
