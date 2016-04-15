@@ -8,7 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by NinthWorld on 4/14/2016.
@@ -39,7 +45,7 @@ public class LauncherMain extends Application {
             if(!serverIpTextField.getText().equals("") && !usernameTextField.getText().equals("") && !passwordTextField.getText().equals("")){
                 try {
                     Process proc = Runtime.getRuntime().exec("java -jar MagicFX.jar --server=" + serverIpTextField.getText() + " --user=\"" + usernameTextField.getText() + "\" --pass=\"" + passwordTextField.getText().hashCode() + "\"");
-                    System.exit(0);
+                    //System.exit(0);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -48,8 +54,15 @@ public class LauncherMain extends Application {
 
         hostServerBtn.setOnAction(e -> {
             try {
-                Process proc = Runtime.getRuntime().exec("java -jar MagicFXServer.jar");
-                System.exit(0);
+                // Runtime.getRuntime().exec(new String[] { "cmd.exe", "/c", "startserver.bat" } );
+                File file = new File("startserver.bat");
+                if(!file.exists()){
+                    PrintWriter writer = new PrintWriter("startserver.bat", "UTF-8");
+                    writer.print("java -jar MagicFXServer.jar");
+                    writer.close();
+                }
+                Desktop.getDesktop().open(file);
+                //System.exit(0);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

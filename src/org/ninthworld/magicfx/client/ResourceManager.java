@@ -29,7 +29,7 @@ public class ResourceManager {
     private static final String hqCardCachePath = "res/cache/hqcards/"; //"../DeckEditor/res/cache/hqcards/"; //
     private static final String lqCardCachePath = "res/cache/lqcards/";
     private static final String allSetsJSONPath = "/json/AllSets.json";
-    private static final String cardBackPath = "res/symbols/back.jpg";
+    private static final String cardBackPath = "/symbols/back.jpg";
     private static final String symbolsDir = "symbols";
     private static final String backgroundPath = "/bg/bg5.jpg";
 
@@ -82,11 +82,13 @@ public class ResourceManager {
             setGuiPaneBorderColor(Color.rgb(0, 0, 0, 0.6));
             setGuiPaneFillColor(Color.rgb(255, 255, 255, 0.2));
 
-            setCardBackBufferedImage(ImageIO.read(new File(cardBackPath)));
-            setBackgroundImage(new Image(getClass().getResource(backgroundPath).toString()));
-
             loadAllSets();
             loadAllSymbols();
+
+            //setCardBackBufferedImage(ImageIO.read(new File(cardBackPath)));
+            cardBackImage = ImageIO.read(getClass().getResourceAsStream(cardBackPath));
+            setBackgroundImage(new Image(getClass().getResource(backgroundPath).toString()));
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {

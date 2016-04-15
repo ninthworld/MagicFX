@@ -2,128 +2,24 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="MagicFX:jar" />
+      <artifact name="MagicFXLauncher:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/symbols/statusConnected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/symbols/statusDisconnected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/symbols/statusLobbyLeader.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/symbols/statusSpectator.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/GameSettings.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Member.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Packet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/PacketHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ClientThread.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/launcher.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/server/ConnectionListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/server/ServerMain.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/server/ServerManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/server/ServerThread.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/CardPane.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Controller.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Drag.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/PlayerArea.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Rect.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/ResourceManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/10E/Loxodon Warhammer.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/10E/Pacifism.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/ALA/Ajani Vengeant.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/ARB/Fight to the Death.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Bonfire of the Damned.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Gisela, Blade of Goldnight.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Silverblade Paladin.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Thunderous Wrath.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/AVR/Vexing Devil.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BFZ/Mountain6.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BFZ/Mountain7.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BFZ/Plains1.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/BFZ/Plains9.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/C15/Anya, Merciless Angel.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/C15/Kalemne, Disciple of Iroas.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/C15/Seal of the Guildpact.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/CNS/Basandra, Battle Seraph.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Blaze Commando.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Boros Battleshaper.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Boros Cluestone.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Boros Guildgate.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Legion's Initiative.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Tajic, Blade of the Legion.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DGM/Wear.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DKA/Hellrider.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DKA/Increasing Vengeance.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/DTK/Pacifism.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/EVE/Balefire Liege.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/EVE/Nobilis of War.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/EVE/Rugged Prairie.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/FUT/Cloud Key.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Angelic Skirmisher.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Assemble the Legion.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Aurelia, the Warleader.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Boros Charm.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Boros Keyrune.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Boros Reckoner.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Firemane Avenger.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Foundry Champion.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Frontline Medic.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Legion Loyalist.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Madcap Skills.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Martial Glory.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Molten Primordial.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Ordruun Veteran.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Sacred Foundry.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Shattering Blow.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/GTC/Spark Trooper.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/ISD/Clifftop Retreat.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/JOU/Iroas, God of Victory.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/KTK/Crater's Claws.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/KTK/Sarkhan, the Dragonspeaker.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M10/Earthquake.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M11/Baneslayer Angel.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M11/Lightning Bolt.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M12/Aegis Angel.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Gilded Lotus.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Oblivion Ring.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Odric, Master Tactician.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Ring of Thune.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M13/Safe Passage.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M14/Imposing Sovereign.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M14/Ring of Three Wishes.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/M15/Shield of the Avatar.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/MBS/Accorder Paladin.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/MBS/Hero of Oxid Ridge.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/NPH/Elesh Norn, Grand Cenobite.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/NPH/Urabrask the Hidden.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/OGW/Call the Gatewatch.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/ORI/Aegis Angel.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RAV/Boros Garrison.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RAV/Boros Signet.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RAV/Flame-Kin Zealot.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RAV/Rally the Righteous.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RAV/Thundersong Trumpeter.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RTR/Fencing Ace.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/RTR/Tablet of the Guilds.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/THS/Anax and Cymede.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/TSP/Angel's Grace.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/cache/lqcards/V10/Sol Ring.full.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Controller.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/CardPane.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/CardPane.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Main.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ClientMain.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/PlayerArea.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/PlayerArea.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/ResourceManager.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/DeckData.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/DeckData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Player.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/SetData.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/SetData.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/manifests/client-jar/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/manifests/launcher-jar/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MagicFX/manifests/server-jar/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res/manifests/client-jar/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/manifests/client-jar/META-INF/MANIFEST.MF" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res/manifests/launcher-jar/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/manifests/launcher-jar/META-INF/MANIFEST.MF" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res/manifests/server-jar/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/manifests/server-jar/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/launcher/LauncherMain.class" afterPath="$PROJECT_DIR$/out/production/MagicFX/org/ninthworld/magicfx/launcher/LauncherMain.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/MagicFXLauncher_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/MagicFXLauncher_jar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/MagicFXServer_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/MagicFXServer_jar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/MagicFX_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/MagicFX_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MagicFX/magicfx.fxml" afterPath="$PROJECT_DIR$/out/production/MagicFX/magicfx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/magicfx.fxml" afterPath="$PROJECT_DIR$/res/magicfx.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/DeckData.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/DeckData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/SetData.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/SetData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java" afterPath="$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -188,12 +84,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Member.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Member.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Member.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+            <state relative-caret-position="629">
+              <caret line="54" column="37" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LauncherMain.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourceManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding>
+                <element signature="e#2297#2298#0" expanded="true" />
+                <element signature="e#2328#2329#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -252,9 +171,10 @@
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/server/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ClientMain.java" />
         <option value="$PROJECT_DIR$/res/launcher.fxml" />
-        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java" />
         <option value="$PROJECT_DIR$/MagicFXServer/src/magicfx/PacketHandler.java" />
         <option value="$PROJECT_DIR$/MagicFXServer/src/org/ninthworld/magicfx/PacketHandler.java" />
+        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java" />
+        <option value="$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java" />
       </list>
     </option>
   </component>
@@ -302,8 +222,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -436,7 +355,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -450,7 +370,7 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DeckEditor/res" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -458,11 +378,14 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/NinthWorld/IdeaProjects/MagicFX/src/org/ninthworld/magicfx/CardPane.java" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="magicfx" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\NinthWorld\IdeaProjects\MagicFX\src\org\ninthworld\magicfx\launcher" />
-      <recent name="C:\Users\NinthWorld\IdeaProjects\MagicFX\res" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.ninthworld.magicfx.client" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\NinthWorld\IdeaProjects\MagicFX\MagicFXServer\src" />
@@ -471,11 +394,13 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.ninthworld.magicfx.server" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="org.ninthworld.magicfx.client" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\NinthWorld\IdeaProjects\MagicFX" />
+      <recent name="C:\Users\NinthWorld\IdeaProjects\MagicFX\src\org\ninthworld\magicfx\launcher" />
+      <recent name="C:\Users\NinthWorld\IdeaProjects\MagicFX\res" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MagicFX Launcher">
+  <component name="RunManager" selected="Application.ClientMain (NinthWorld)">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
@@ -815,8 +740,8 @@
     <option name="totallyTimeSpent" value="1302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -826,11 +751,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15433404" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="-8" y="371" width="1936" height="274" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15433404" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="-8" y="371" width="1936" height="274" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16875" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16875" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1007,13 +932,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2346">
-          <caret line="146" column="21" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/client/CardPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1887">
@@ -1185,13 +1103,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MagicFXServer/src/org/ninthworld/magicfx/server/ServerManager.java" />
     <entry file="file://$PROJECT_DIR$/MagicFXServer/src/org/ninthworld/magicfx/client/CardPane.java" />
     <entry file="file://$PROJECT_DIR$/MagicFXServer/src/org/ninthworld/magicfx/Member.java" />
@@ -1204,8 +1115,27 @@
     <entry file="file://$PROJECT_DIR$/MagicFXServer/src/org/ninthworld/magicfx/PacketHandler.java" />
     <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/Member.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        <state relative-caret-position="629">
+          <caret line="54" column="37" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/client/ResourceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding>
+            <element signature="e#2297#2298#0" expanded="true" />
+            <element signature="e#2328#2329#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/ninthworld/magicfx/launcher/LauncherMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1216,7 +1146,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>MagicFX:jar</last-edited>
+          <last-edited>MagicFXLauncher:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
