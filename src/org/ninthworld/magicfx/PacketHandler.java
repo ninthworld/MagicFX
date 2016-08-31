@@ -16,6 +16,27 @@ import java.util.TimerTask;
  */
 public class PacketHandler {
 
+    public static void sendUpdatePlayer(ClientThread thread, Player player) throws IOException {
+        Packet packet = new Packet("updatePlayer");
+        packet.addData("player", player.toJSONObject()).addData("uuid", thread.getMember().getUUID());
+        thread.getOutputStream().writeBytes(packet.toString());
+    }
+
+    public static void sendRequestGameInfo(ClientThread thread) throws IOException {
+        Packet packet = new Packet("requestGameInfo");
+        thread.getOutputStream().writeBytes(packet.toString());
+    }
+
+    public static void sendRequestStartGame(ClientThread thread) throws IOException {
+        Packet packet = new Packet("requestStartGame");
+        thread.getOutputStream().writeBytes(packet.toString());
+    }
+
+    public static void sendRequestEndGame(ClientThread thread) throws IOException {
+        Packet packet = new Packet("requestEndGame");
+        thread.getOutputStream().writeBytes(packet.toString());
+    }
+
     public static void sendSelfLobby(ClientThread thread, GameSettings gameSettings) throws IOException {
         Packet packet = new Packet("selfLobby");
         packet.addData("member", thread.getMember().toJSONObject());
@@ -48,7 +69,7 @@ public class PacketHandler {
             jsonObject.put("threadRunning", serverThread.isRunning());
             jsonArray.add(jsonObject);
         }
-        sendPacket.addData("lobbyLeader", thread.getServerManager().getLobbyLeaderUUID()).addData("members", jsonArray);
+        sendPacket.addData("lobbyLeader", thread.getServerManager().getLobbyLeaderUUID()).addData("members", jsonArray).addData("gameRunning", thread.getServerManager().getGame() != null);
         sendPacket.addData("gameSettings", thread.getServerManager().getGameSettings().toJSONObject());
 
         for(ServerThread serverThread : thread.getServerManager().getConnections().values()){
@@ -56,7 +77,24 @@ public class PacketHandler {
         }
     }
 
-    private static void handleClient(ClientThread thread, Packet packet){
+    public static void sendGameInfo(ServerThread thread) throws IOException {
+        Packet packet = new Packet("gameInfo");
+
+        Game game = thread.getServerManager().getGame();
+        JSONArray players = new JSONArray();
+        if(game != null){
+            for(Map.Entry<String, Player> entry : game.getPlayers().entrySet()){
+                JSONObject playerObj = entry.getValue().toJSONObject();
+                playerObj.put("uuid", entry.getKey());
+                players.add(playerObj);
+            }
+        }
+        packet.addData("gameRunning", game != null).addData("players", players);
+
+        thread.addSendPacket(packet);
+    }
+
+    private static void handleClient(ClientThread thread, Packet packet) throws IOException {
         Map<String, Object> packetData = packet.getMapData();
         String packetName = (String) packetData.get("packetName");
 
@@ -68,7 +106,13 @@ public class PacketHandler {
         }else if(packetName.equals("lobbyData")){
             JSONArray members = (JSONArray) packetData.get("members");
             JSONObject gameSettings = (JSONObject) packetData.get("gameSettings");
-            Platform.runLater(() -> thread.getParent().updateLobby(members, gameSettings, (String) packetData.get("lobbyLeader")));
+            Platform.runLater(() -> thread.getParent().updateLobby(members, gameSettings, (String) packetData.get("lobbyLeader"), (Boolean) packetData.get("gameRunning")));
+        }else if(packetName.equals("gameInfo")){
+            boolean gameRunning = (Boolean) packetData.get("gameRunning");
+            JSONArray players = (JSONArray) packetData.get("players");
+
+            sendRequestLobbyData(thread);
+            Platform.runLater(() -> thread.getParent().updateGame(players, gameRunning));
         }
     }
 
@@ -91,11 +135,41 @@ public class PacketHandler {
                 thread.getServerManager().getGameSettings().setFromJSON(gameSettingsObj);
             }
             sendLobbyData(thread);
+        }else if(packetName.equals("requestStartGame")){
+            if(thread.getServerManager().getGame() == null){
+                thread.getServerManager().createGame();
+                for(ServerThread serverThread : thread.getServerManager().getConnections().values()){
+                    sendGameInfo(serverThread);
+                }
+            }
+        }else if(packetName.equals("requestEndGame")){
+            if(thread.getServerManager().getGame() != null){
+                thread.getServerManager().endGame();
+                for(ServerThread serverThread : thread.getServerManager().getConnections().values()){
+                    sendGameInfo(serverThread);
+                }
+            }
+        }else if(packetName.equals("requestGameInfo")){
+            sendGameInfo(thread);
+        }else if(packetName.equals("updatePlayer")){
+            if(thread.getServerManager().getGame() != null){
+                if(thread.getServerManager().getGame().getPlayers().containsKey((String) packetData.get("uuid"))){
+                    thread.getServerManager().getGame().getPlayers().get((String) packetData.get("uuid")).setFromJSON((JSONObject) packetData.get("player"), null);
+                    for(ServerThread serverThread : thread.getServerManager().getConnections().values()){
+                        sendGameInfo(serverThread);
+                    }
+                }
+            }
         }
     }
 
-    public static void handleInput(Thread thread, String inMsg) throws ParseException, IOException {
-        Packet packet = Packet.readPacket(inMsg);
+    public static void handleInput(Thread thread, String inMsg) throws IOException {
+        Packet packet = new Packet("null");
+        try {
+            packet = Packet.readPacket(inMsg);
+        } catch(ParseException e){
+            System.out.println("Error: Packet corrupted.");
+        }
         Map<String, Object> packetData = packet.getMapData();
 
         if(packetData.containsKey("packetName")){

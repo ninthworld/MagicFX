@@ -64,7 +64,7 @@ public class ServerThread extends Thread {
             }
         } catch(SocketException e){
             System.out.println("Client disconnected.");
-        } catch(IOException | ParseException e){
+        } catch(IOException e){
             e.printStackTrace();
         }
 

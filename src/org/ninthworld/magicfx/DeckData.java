@@ -1,5 +1,8 @@
 package org.ninthworld.magicfx;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.HashMap;
 
 /**
@@ -56,5 +59,17 @@ public class DeckData {
 
     public void setDeckName(String deckName) {
         this.deckName = deckName;
+    }
+
+    public JSONObject toJSONObject(){
+        JSONObject jsonObject = new JSONObject();
+        /*JSONArray commanderArray = new JSONArray();
+        JSONArray mainboardArray = new JSONArray();
+        JSONArray sideboardArray = new JSONArray();
+        JSONArray maybeboardArray = new JSONArray();
+
+        jsonObject.put("deckName", deckName);*/
+
+        return jsonObject;
     }
 }

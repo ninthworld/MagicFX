@@ -17,13 +17,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by NinthWorld on 4/8/2016.
  */
 public class DeckLoader {
 
-    public static DeckData loadDeckFile(File file, ArrayList<CardData> allCards){
+    public static DeckData loadDeckFile(File file, HashMap<String, CardData> allCards){
         String ext = file.getName().substring(file.getName().lastIndexOf(".") + 1).toLowerCase();
         switch(ext){
             case "dec":
@@ -37,7 +38,7 @@ public class DeckLoader {
         }
     }
 
-    private static DeckData openDec(File file, ArrayList<CardData> allCards){
+    private static DeckData openDec(File file, HashMap<String, CardData> allCards){
         DeckData deckData = new DeckData();
 
         try {
@@ -56,7 +57,7 @@ public class DeckLoader {
                     String name = line.substring(line.indexOf(" ")+1);
 
                     CardData card = null;
-                    for(CardData cardData : allCards){
+                    for(CardData cardData : allCards.values()){
                         if(cardData.getName().equalsIgnoreCase(name)){
                             card = cardData;
                             break;
@@ -80,7 +81,7 @@ public class DeckLoader {
         return deckData;
     }
 
-    private static DeckData openDeck(File file, ArrayList<CardData> allCards){
+    private static DeckData openDeck(File file, HashMap<String, CardData> allCards){
         DeckData deckData = new DeckData();
 
         try {
@@ -123,7 +124,7 @@ public class DeckLoader {
                             int count = Integer.parseInt(attr.getAttribute("count"));
 
                             CardData card = null;
-                            for (CardData cardData : allCards) {
+                            for (CardData cardData : allCards.values()) {
                                 if (cardData.getName().equalsIgnoreCase(name) && cardData.getSetCode().equalsIgnoreCase(setCode)) {
                                     card = cardData;
                                     break;
@@ -158,7 +159,7 @@ public class DeckLoader {
         return deckData;
     }
 
-    private static DeckData openJDeck(File file, ArrayList<CardData> allCards){
+    private static DeckData openJDeck(File file, HashMap<String, CardData> allCards){
         DeckData deckData = new DeckData();
 
         try {
@@ -181,7 +182,7 @@ public class DeckLoader {
                         }
 
                         if (cardObj.containsKey("multiverseId")) {
-                            for (CardData cardData : allCards) {
+                            for (CardData cardData : allCards.values()) {
                                 if (cardData.getMultiverseId().equals(cardObj.get("multiverseId").toString())) {
                                     switch(i){
                                         case 0:

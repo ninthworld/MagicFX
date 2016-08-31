@@ -32,11 +32,12 @@ public class ResourceManager {
     private static final String cardBackPath = "/symbols/back.jpg";
     private static final String symbolsDir = "symbols";
     private static final String backgroundPath = "/bg/bg5.jpg";
+    public static final String lucidaFontPath = "/fonts/LucidaSansDemiBold.ttf";
 
     private Scene scene;
     private ImageView cardPreview;
 
-    private ArrayList<CardData> allCards;
+    private HashMap<String, CardData> allCards;
     private HashMap<CardData, BufferedImage> cardImages;
     private HashMap<String, Image> symbols;
     private HashMap<String, Color> rarityColors;
@@ -45,27 +46,24 @@ public class ResourceManager {
     private Image backgroundImage;
     private Color guiPaneBorderColor, guiPaneFillColor;
 
-    public String lucidaFontURI;
-
     public ResourceManager(Scene scene){
         this.scene = scene;
         this.cardPreview = new ImageView();
 
-        this.allCards = new ArrayList<>();
+        this.allCards = new HashMap<>();
         this.cardImages = new HashMap<>();
         this.symbols = new HashMap<>();
         this.rarityColors = new HashMap<>();
         this.backgroundImage = null;
         this.cardBackImage = null;
         this.guiPaneBorderColor = this.guiPaneFillColor = Color.BLACK;
-        this.lucidaFontURI = new File("res/fonts/LucidaSansDemiBold.ttf").toURI().toString();
     }
 
     public HashMap<String, Image> getSymbols(){
         return symbols;
     }
 
-    public ArrayList<CardData> getAllCards(){
+    public HashMap<String, CardData> getAllCards(){
         return allCards;
     }
 
@@ -181,7 +179,10 @@ public class ResourceManager {
                     JSONObject cardObj = (JSONObject) card;
                     CardData cardData = new CardData();
                     cardData.setSetCode(setCode);
-                    allCards.add(cardData);
+
+                    if(cardObj.containsKey("multiverseid")){
+                        cardData.setMultiverseId(cardObj.get("multiverseid").toString());
+                    }
 
                     if(cardObj.containsKey("name")){
                         cardData.setName(cardObj.get("name").toString());
@@ -282,9 +283,7 @@ public class ResourceManager {
                         cardData.setVariations(strs);
                     }
 
-                    if(cardObj.containsKey("multiverseid")){
-                        cardData.setMultiverseId(cardObj.get("multiverseid").toString());
-                    }
+                    allCards.put(cardData.getMultiverseId(), cardData);
                 });
             }
         }
@@ -347,7 +346,7 @@ public class ResourceManager {
     }
 
     public CardData getCardData(String cardName){
-        for(CardData cardData : allCards){
+        for(CardData cardData : allCards.values()){
             if(cardData.getName().equalsIgnoreCase(cardName)){
                 return cardData;
             }

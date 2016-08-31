@@ -12,6 +12,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import org.ninthworld.magicfx.CardEntity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -164,9 +166,16 @@ public class CardPane extends BorderPane {
 
         String strokeStyle = "-fx-effect: dropshadow(one-pass-box, black, 4, 1, 0, 0);";
         String strokeStyle2 = "-fx-effect: dropshadow(one-pass-box, rgb(100, 80, 0), 4, 1, 0, 0);";
-        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * cardHeight);
-        Font font2 = Font.loadFont(resourceManager.lucidaFontURI, .12 * cardHeight);
-        Font font3 = Font.loadFont(resourceManager.lucidaFontURI, .09 * cardHeight);
+
+        InputStream is = getClass().getResourceAsStream(resourceManager.lucidaFontPath);
+        Font font1 = Font.loadFont(is, .1 * cardHeight);
+        Font font2 = Font.loadFont(is, .12 * cardHeight);
+        Font font3 = Font.loadFont(is, .09 * cardHeight);
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         cardNameTextFlow.setTextAlignment(TextAlignment.CENTER);
         cardNameTextFlow.setMaxWidth(cardWidth);

@@ -43,6 +43,7 @@ public class ClientThread extends Thread {
             DataOutputStream out = getOutputStream();
             PacketHandler.sendHandshake(this, member.getUUID(), member.getUsername());
             PacketHandler.sendRequestLobbyData(this);
+            PacketHandler.sendRequestGameInfo(this);
 
             while(isRunning) {
                 try {
@@ -52,7 +53,7 @@ public class ClientThread extends Thread {
                     PacketHandler.handleInput(this, inMsg);
                 } catch (SocketTimeoutException e){ }
             }
-        } catch(IOException | ParseException e){
+        } catch(IOException e){
             e.printStackTrace();
         }
     }

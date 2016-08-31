@@ -13,8 +13,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import org.ninthworld.magicfx.CardData;
 import org.ninthworld.magicfx.CardEntity;
+import org.ninthworld.magicfx.PacketHandler;
 import org.ninthworld.magicfx.Player;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,9 +34,11 @@ public class PlayerArea {
     private ArrayList<CardPane> selectedNodes;
     private ArrayList<Drag> draggedNodes;
 
+    private boolean isTopArea;
     private Player player;
 
     public PlayerArea(Player player){
+        this.isTopArea = true;
         this.player = player;
 
         this.parentGridPane = new GridPane();
@@ -60,6 +65,10 @@ public class PlayerArea {
     }
 
     //<editor-fold desc="Getters and Setters">
+    public Player getPlayer(){
+        return player;
+    }
+
     public TextFlow getBattlefieldTextFlow() {
         return battlefieldTextFlow;
     }
@@ -213,6 +222,14 @@ public class PlayerArea {
     }
     //</editor-fold>
 
+    public void sendUpdate(ClientThread clientThread){
+        try {
+            PacketHandler.sendUpdatePlayer(clientThread, player);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void initAreas(ResourceManager resourceManager){
         CardEntity deckCard = new CardEntity(new CardData());
         CardPane cardPane = CardPane.createCardPane(deckCard, resourceManager);
@@ -224,7 +241,53 @@ public class PlayerArea {
         }
 
         updatePanes(resourceManager);
-        updatePaneActions(resourceManager);
+        // updatePaneActions(resourceManager);
+    }
+
+    public void syncPanes(ResourceManager resourceManager){
+        ArrayList<CardPane> battlefieldCards = new ArrayList<>();
+        player.getBattlefield().forEach(e -> {
+            CardPane cardPane = CardPane.createCardPane(e, resourceManager);
+            cardPane.setTranslateX(cardPane.getCardEntity().getPosX()*battlefieldPane.getWidth());
+            if(isTopArea){
+                cardPane.setTranslateY((.8 - cardPane.getCardEntity().getPosY())*battlefieldPane.getHeight());
+            }else{
+                cardPane.setTranslateY(cardPane.getCardEntity().getPosY()*battlefieldPane.getHeight());
+            }
+            cardPane.setShowCost(false);
+            battlefieldCards.add(cardPane);
+        });
+        battlefieldPane.getChildren().setAll(battlefieldCards);
+
+        ArrayList<CardPane> exileCards = new ArrayList<>();
+        player.getExile().forEach(e -> {
+            CardPane cardPane = CardPane.createCardPane(e, resourceManager);
+            cardPane.setTranslateX(cardPane.getCardEntity().getPosX()*exilePane.getWidth());
+            if(isTopArea){
+                cardPane.setTranslateY((.8 - cardPane.getCardEntity().getPosY())*exilePane.getHeight());
+            }else{
+                cardPane.setTranslateY(cardPane.getCardEntity().getPosY()*exilePane.getHeight());
+            }
+            cardPane.setShowCost(false);
+            exileCards.add(cardPane);
+        });
+        exilePane.getChildren().setAll(exileCards);
+
+        ArrayList<CardPane> handCards = new ArrayList<>();
+        player.getHand().forEach(e -> {
+            handCards.add(CardPane.createCardPane(new CardEntity(e), resourceManager));
+        });
+        handPane.getChildren().setAll(handCards);
+
+        ArrayList<CardPane> graveyardCards = new ArrayList<>();
+        player.getGraveyard().forEach(e -> {
+            graveyardCards.add(CardPane.createCardPane(new CardEntity(e), resourceManager));
+        });
+        graveyardPane.getChildren().setAll(graveyardCards);
+
+        // commanderPane.getChildren().setAll(CardPane.createCardPane(new CardEntity(player.getCommander()), resourceManager));
+
+        updatePanes(resourceManager);
     }
 
     public void updatePanes(ResourceManager resourceManager){
@@ -253,7 +316,7 @@ public class PlayerArea {
         );*/
     }
 
-    public void moveCardFromTo(ResourceManager resourceManager, Pane fromPane, Pane toPane, CardPane fromCard, CardPane toCard){
+    public void moveCardFromTo(ResourceManager resourceManager, ClientThread clientThread, Pane fromPane, Pane toPane, CardPane fromCard, CardPane toCard){
         removeSelectedChild(selectedNodes, fromCard);
         CardEntity newCardEntity = fromCard.getCardEntity();
 
@@ -283,7 +346,7 @@ public class PlayerArea {
         }
 
         if(fromPane == exilePane){
-            player.getExile().remove(fromCard.getCardEntity().getCardData());
+            player.getExile().remove(fromCard.getCardEntity());
         }
 
         if(fromPane == handPane){
@@ -320,6 +383,8 @@ public class PlayerArea {
             CardPane newCardPane = CardPane.createCardPane(newCardEntity, resourceManager);
             newCardPane.setTranslateX(toCard.getTranslateX());
             newCardPane.setTranslateY(toCard.getTranslateY());
+            newCardPane.getCardEntity().setPosX(newCardPane.getTranslateX()/battlefieldPane.getWidth());
+            newCardPane.getCardEntity().setPosY(newCardPane.getTranslateY()/battlefieldPane.getHeight());
             newCardPane.setShowCost(false);
 
             addSelectedChild(selectedNodes, newCardPane);
@@ -333,6 +398,8 @@ public class PlayerArea {
             CardPane newCardPane = CardPane.createCardPane(newCardEntity, resourceManager);
             newCardPane.setTranslateX(toCard.getTranslateX());
             newCardPane.setTranslateY(toCard.getTranslateY());
+            newCardPane.getCardEntity().setPosX(newCardPane.getTranslateX()/exilePane.getWidth());
+            newCardPane.getCardEntity().setPosY(newCardPane.getTranslateY()/exilePane.getHeight());
             newCardPane.setShowCost(false);
 
             addSelectedChild(selectedNodes, newCardPane);
@@ -363,14 +430,21 @@ public class PlayerArea {
             }
         }
 
-        updatePaneActions(resourceManager);
+        sendUpdate(clientThread);
+
+        updatePaneActions(resourceManager, clientThread);
     }
 
     private void updateBattlefieldPane(ResourceManager resourceManager){
         double parentWidth = (battlefieldPane.getWidth() > 0 ? battlefieldPane.getWidth() : battlefieldPane.getPrefWidth());
         double parentHeight = (battlefieldPane.getHeight() > 0 ? battlefieldPane.getHeight() : battlefieldPane.getPrefHeight());
 
-        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        InputStream is = getClass().getResourceAsStream(resourceManager.lucidaFontPath);
+        Font font1 = Font.loadFont(is, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        try {
+            is.close();
+        } catch (IOException e) {
+        }
         String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
 
         battlefieldTextFlow.setTextAlignment(TextAlignment.LEFT);
@@ -386,9 +460,17 @@ public class PlayerArea {
             battlefieldTextFlow.getChildren().setAll(text);
         }
 
+        if(!battlefieldPane.getChildren().contains(battlefieldTextFlow)){
+            battlefieldPane.getChildren().add(battlefieldTextFlow);
+        }
+
         ArrayList<Node> bNodes = new ArrayList<>();
         battlefieldPane.getChildren().forEach(child -> {
             bNodes.add(child);
+            if(child instanceof CardPane){
+                //child.setTranslateX(((CardPane) child).getCardEntity().getPosX()*battlefieldPane.getWidth());
+                //child.setTranslateY(((isTopArea ? 1 - 2 * (Math.floor(CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080))/2)/battlefieldPane.getHeight() : 0) - ((CardPane) child).getCardEntity().getPosY())*battlefieldPane.getHeight());
+            }
         });
         Collections.sort(bNodes, (n1, n2) -> {
             if(n1.getTranslateY() < n2.getTranslateY() || n1.getTranslateX() < n2.getTranslateX()){
@@ -403,7 +485,13 @@ public class PlayerArea {
         double parentWidth = (handPane.getWidth() > 0 ? handPane.getWidth() : handPane.getPrefWidth());
         double parentHeight = (handPane.getHeight() > 0 ? handPane.getHeight() : handPane.getPrefHeight());
 
-        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        InputStream is = getClass().getResourceAsStream(resourceManager.lucidaFontPath);
+        Font font1 = Font.loadFont(is, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
 
         handTextFlow.setTextAlignment(TextAlignment.LEFT);
@@ -417,6 +505,10 @@ public class PlayerArea {
         text.setText("Hand (" + player.getHand().size() + ")");
         if(parentWidth > 0) {
             handTextFlow.getChildren().setAll(text);
+        }
+
+        if(!handPane.getChildren().contains(handTextFlow)){
+            handPane.getChildren().add(handTextFlow);
         }
 
         int cardPaneCount = 0;
@@ -453,7 +545,13 @@ public class PlayerArea {
         double parentWidth = (exilePane.getWidth() > 0 ? exilePane.getWidth() : exilePane.getPrefWidth());
         double parentHeight = (exilePane.getHeight() > 0 ? exilePane.getHeight() : exilePane.getPrefHeight());
 
-        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        InputStream is = getClass().getResourceAsStream(resourceManager.lucidaFontPath);
+        Font font1 = Font.loadFont(is, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
 
         exileTextFlow.setTextAlignment(TextAlignment.CENTER);
@@ -466,6 +564,10 @@ public class PlayerArea {
         text.setText("Exile (" + player.getExile().size() + ")");
         if(parentWidth > 0) {
             exileTextFlow.getChildren().setAll(text);
+        }
+
+        if(!exilePane.getChildren().contains(exileTextFlow)){
+            exilePane.getChildren().add(exileTextFlow);
         }
 
         ArrayList<Node> eNodes = new ArrayList<>();
@@ -492,7 +594,13 @@ public class PlayerArea {
         double parentWidth = (graveyardPane.getWidth() > 0 ? graveyardPane.getWidth() : graveyardPane.getPrefWidth());
         double parentHeight = (graveyardPane.getHeight() > 0 ? graveyardPane.getHeight() : graveyardPane.getPrefHeight());
 
-        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        InputStream is = getClass().getResourceAsStream(resourceManager.lucidaFontPath);
+        Font font1 = Font.loadFont(is, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
 
         graveyardTextFlow.setTextAlignment(TextAlignment.CENTER);
@@ -504,6 +612,10 @@ public class PlayerArea {
         text.setFill(Color.rgb(255, 255, 255, 0.6));
         text.setText("Graveyard (" + player.getGraveyard().size() + ")");
         graveyardTextFlow.getChildren().setAll(text);
+
+        if(!graveyardPane.getChildren().contains(graveyardTextFlow)){
+            graveyardPane.getChildren().add(graveyardTextFlow);
+        }
 
         ArrayList<Node> gNodes = new ArrayList<>();
         graveyardPane.getChildren().forEach(child -> {
@@ -521,7 +633,13 @@ public class PlayerArea {
         double parentWidth = (deckPane.getWidth() > 0 ? deckPane.getWidth() : deckPane.getPrefWidth());
         double parentHeight = (deckPane.getHeight() > 0 ? deckPane.getHeight() : deckPane.getPrefHeight());
 
-        Font font1 = Font.loadFont(resourceManager.lucidaFontURI, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        InputStream is = getClass().getResourceAsStream(resourceManager.lucidaFontPath);
+        Font font1 = Font.loadFont(is, .1 * CardPane.cardHeightAnchor*(resourceManager.getScene().getHeight()/1080));
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String strokeStyle = "-fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.6), 4, 1, 0, 0);";
 
         deckTextFlow.setTextAlignment(TextAlignment.CENTER);
@@ -533,6 +651,10 @@ public class PlayerArea {
         text.setFill(Color.rgb(255, 255, 255, 0.6));
         text.setText("Library (" + player.getDeck().size() + ")");
         deckTextFlow.getChildren().setAll(text);
+
+        if(!deckPane.getChildren().contains(deckTextFlow)){
+            deckPane.getChildren().add(deckTextFlow);
+        }
 
         ArrayList<Node> dNodes = new ArrayList<>();
         deckPane.getChildren().forEach(child -> {
@@ -591,7 +713,7 @@ public class PlayerArea {
     }
 
     public boolean released = true;
-    public void updatePaneActions(ResourceManager resourceManager){ Rect selectRect = new Rect(0, 0, 0, 0);
+    public void updatePaneActions(ResourceManager resourceManager, ClientThread clientThread){ Rect selectRect = new Rect(0, 0, 0, 0);
         Pane selectArea = new Pane();
         selectArea.setVisible(false);
         selectArea.setBackground(new Background(new BackgroundFill(Color.rgb(77, 144, 254, 0.1), CornerRadii.EMPTY, new Insets(0))));
@@ -614,7 +736,7 @@ public class PlayerArea {
                     handPane.getChildren().add(newCardPane);
 
                     updatePanes(resourceManager);
-                    updatePaneActions(resourceManager);
+                    updatePaneActions(resourceManager, clientThread);
                 }
 
                 if (e.getCode() == KeyCode.CLOSE_BRACKET) {
@@ -628,24 +750,28 @@ public class PlayerArea {
                                     int counters = card.getCardEntity().getPlusCounters();
                                     card.setPlusCounters(counters + 1);
                                 }
+                                sendUpdate(clientThread);
                             }
                         }
                     }else if(!e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
                         for (CardPane card : selectedNodes) {
                             if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
                                 card.setRedCounters(card.getCardEntity().getRedCounters() + 1);
+                                sendUpdate(clientThread);
                             }
                         }
                     }else if(e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
                         for (CardPane card : selectedNodes) {
                             if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
                                 card.setBlueCounters(card.getCardEntity().getBlueCounters() + 1);
+                                sendUpdate(clientThread);
                             }
                         }
                     }else if(!e.isShiftDown() && e.isControlDown() && e.isAltDown()){
                         for (CardPane card : selectedNodes) {
                             if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
                                 card.setGreenCounters(card.getCardEntity().getGreenCounters() + 1);
+                                sendUpdate(clientThread);
                             }
                         }
                     }
@@ -663,6 +789,7 @@ public class PlayerArea {
                                     int counters = card.getCardEntity().getPlusCounters();
                                     card.setPlusCounters(counters - 1);
                                 }
+                                sendUpdate(clientThread);
                             }
                         }
                     }else if(!e.isShiftDown() && e.isControlDown() && !e.isAltDown()){
@@ -670,6 +797,7 @@ public class PlayerArea {
                             if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
                                 if (card.getCardEntity().getRedCounters() > 0) {
                                     card.setRedCounters(card.getCardEntity().getRedCounters() - 1);
+                                    sendUpdate(clientThread);
                                 }
                             }
                         }
@@ -678,6 +806,7 @@ public class PlayerArea {
                             if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
                                 if (card.getCardEntity().getBlueCounters() > 0) {
                                     card.setBlueCounters(card.getCardEntity().getBlueCounters() - 1);
+                                    sendUpdate(clientThread);
                                 }
                             }
                         }
@@ -686,6 +815,7 @@ public class PlayerArea {
                             if(card.getParent() == battlefieldPane || card.getParent() == exilePane) {
                                 if (card.getCardEntity().getGreenCounters() > 0) {
                                     card.setGreenCounters(card.getCardEntity().getGreenCounters() - 1);
+                                    sendUpdate(clientThread);
                                 }
                             }
                         }
@@ -702,7 +832,7 @@ public class PlayerArea {
                 dragParent.getChildren().remove(drag.drag);
                 srcParent.getChildren().remove(drag.src);
 
-                moveCardFromTo(resourceManager, srcParent, dragParent, drag.src, drag.drag);
+                moveCardFromTo(resourceManager, clientThread, srcParent, dragParent, drag.src, drag.drag);
             }
 
             removeAllDragged(getDraggedNodes());
@@ -824,7 +954,8 @@ public class PlayerArea {
                             }
 
                             Drag drag = new Drag(srcPane, newCardPane, (Pane) srcPane.getParent(), (Pane) srcPane.getParent(), e.getX(), e.getY());
-                            ((Pane) srcPane.getParent()).getChildren().add(drag.drag);
+                            drag.srcParent.getChildren().add(drag.drag);
+                            //((Pane) srcPane.getParent()).getChildren().add(drag.drag);
 
                             addDraggedChild(getDraggedNodes(), drag);
                         }
@@ -869,6 +1000,8 @@ public class PlayerArea {
 
                             drag.drag.setTranslateX(globalX - parentBounds.getMinX());
                             drag.drag.setTranslateY(globalY - parentBounds.getMinY());
+                            //drag.drag.getCardEntity().setPosX(drag.drag.getTranslateX()/parentBounds.getWidth());
+                            //drag.drag.getCardEntity().setPosY(drag.drag.getTranslateY()/parentBounds.getHeight());
 
                             updatePanes(resourceManager);
                         }
@@ -880,22 +1013,23 @@ public class PlayerArea {
                             for(CardPane card : selectedNodes) {
                                 card.setTapped(!isTapped);
                             }
+                            sendUpdate(clientThread);
                         } else if (e.getButton() == MouseButton.PRIMARY) {
                             if (e.getClickCount() >= 2) {
                                 if (areaPane == deckPane) {
                                     deckPane.getChildren().remove(child);
-                                    moveCardFromTo(resourceManager, deckPane, handPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                                    moveCardFromTo(resourceManager, clientThread, deckPane, handPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
                                 }
 
                                 if (e.getClickCount() == 2) {
                                     if (areaPane == handPane) {
                                         handPane.getChildren().remove(child);
-                                        moveCardFromTo(resourceManager, handPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                                        moveCardFromTo(resourceManager, clientThread, handPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
                                     }
 
                                     if (areaPane == commanderPane) {
                                         commanderPane.getChildren().remove(child);
-                                        moveCardFromTo(resourceManager, commanderPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
+                                        moveCardFromTo(resourceManager, clientThread, commanderPane, battlefieldPane, cardPane, CardPane.createCardPane(cardPane.getCardEntity(), resourceManager));
                                     }
 
                                     if (areaPane == battlefieldPane) {
@@ -903,10 +1037,10 @@ public class PlayerArea {
                                         for(CardPane card : selectedNodes) {
                                             card.setTapped(!isTapped);
                                         }
+                                        sendUpdate(clientThread);
                                     }
                                 }
                             }
-
                             updatePanes(resourceManager);
                         }
                     });
@@ -967,6 +1101,11 @@ public class PlayerArea {
 
     private static PlayerArea createPlayerArea(ResourceManager resourceManager, Player player, int handRowIndex){
         PlayerArea playerArea = new PlayerArea(player);
+        if(handRowIndex == 0){
+            playerArea.isTopArea = true;
+        }else{
+            playerArea.isTopArea = false;
+        }
 
         // Parent Grid Pane - Add Panes
         playerArea.getParentGridPane().add(playerArea.getDeckGravePane(), 0, Math.abs(handRowIndex - 1));
@@ -1052,6 +1191,10 @@ public class PlayerArea {
         playerArea.getAreaPanes().add(playerArea.getCommanderPane());
 
         return playerArea;
+    }
+
+    public boolean isTopArea() {
+        return isTopArea;
     }
     //</editor-fold>
 }

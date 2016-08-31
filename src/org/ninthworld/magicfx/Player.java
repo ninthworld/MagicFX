@@ -1,5 +1,9 @@
 package org.ninthworld.magicfx;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.ninthworld.magicfx.client.ResourceManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,10 +19,10 @@ public class Player {
     private ArrayList<CardEntity> battlefield, exile;
 
     private String name;
-    private int life, poison, damage;
+    private int life, poison, damage, commanderDamage, team;
 
     public Player(){
-        this.deckData = new DeckData();
+        this.deckData = null; //new DeckData();
 
         this.commander = null;
         this.hand = new ArrayList<>();
@@ -27,9 +31,10 @@ public class Player {
         this.exile = new ArrayList<>();
         this.battlefield = new ArrayList<>();
 
+        this.team = 1;
         this.name = "";
         this.life = 20;
-        this.poison = this.damage = 0;
+        this.poison = this.commanderDamage = this.damage = 0;
     }
 
     public void initGame(){
@@ -42,9 +47,7 @@ public class Player {
 
         if(deckData.getCommander().size() > 0){
             deckData.getCommander().keySet().forEach(key -> {
-                if(commander == null){
-                    commander = key;
-                }
+                commander = key;
             });
         }
 
@@ -158,5 +161,143 @@ public class Player {
 
     public void setDeckData(DeckData deckData) {
         this.deckData = deckData;
+    }
+
+    public int getTeam() {
+        return team;
+    }
+
+    public void setTeam(int team) {
+        this.team = team;
+    }
+
+    public int getCommanderDamage() {
+        return commanderDamage;
+    }
+
+    public void setCommanderDamage(int commanderDamage) {
+        this.commanderDamage = commanderDamage;
+    }
+
+    public JSONObject toJSONObject(){
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("name", name);
+        jsonObject.put("life", life);
+        jsonObject.put("poison", poison);
+        jsonObject.put("damage", damage);
+        jsonObject.put("commanderDamage", commanderDamage);
+        jsonObject.put("team", team);
+
+        // EASY PATH - VERY INEFFICENT
+        JSONArray handArray = new JSONArray();
+        JSONArray graveyardArray = new JSONArray();
+        JSONArray deckArray = new JSONArray();
+        JSONArray battlefieldArray = new JSONArray();
+        JSONArray exileArray = new JSONArray();
+
+        for(CardData cardData : hand){
+            handArray.add(cardData.getMultiverseId());
+        }
+
+        for(CardData cardData : graveyard){
+            graveyardArray.add(cardData.getMultiverseId());
+        }
+
+        for(CardData cardData : deck){
+            deckArray.add(cardData.getMultiverseId());
+        }
+
+        for(CardEntity cardEntity : battlefield){
+            battlefieldArray.add(cardEntity.toJSONObject());
+        }
+
+        for(CardEntity cardEntity : exile){
+            exileArray.add(cardEntity.toJSONObject());
+        }
+
+        jsonObject.put("commander", (commander != null ? commander.getMultiverseId() : ""));
+        jsonObject.put("hand", handArray);
+        jsonObject.put("graveyard", graveyardArray);
+        jsonObject.put("deck", deckArray);
+        jsonObject.put("battlefield", battlefieldArray);
+        jsonObject.put("exile", exileArray);
+        jsonObject.put("isDeckLoaded", deckData != null);
+
+        return jsonObject;
+    }
+
+    public void setFromJSON(JSONObject jsonObject, ResourceManager resourceManager){
+        if(((Boolean) jsonObject.get("isDeckLoaded"))){
+            deckData = new DeckData();
+        }
+        name = (String) jsonObject.get("name");
+        life = ((Long) jsonObject.get("life")).intValue();
+        poison = ((Long) jsonObject.get("poison")).intValue();
+        damage = ((Long) jsonObject.get("damage")).intValue();
+        commanderDamage = ((Long) jsonObject.get("commanderDamage")).intValue();
+        team = ((Long) jsonObject.get("team")).intValue();
+
+        // Inefficent
+        if(resourceManager != null) {
+            commander = resourceManager.getAllCards().get((String) jsonObject.get("commander"));
+
+            hand.clear();
+            JSONArray handArray = (JSONArray) jsonObject.get("hand");
+            for (Object obj : handArray) {
+                hand.add(resourceManager.getAllCards().get((String) obj));
+            }
+
+            graveyard.clear();
+            JSONArray graveyardArray = (JSONArray) jsonObject.get("graveyard");
+            for (Object obj : graveyardArray) {
+                graveyard.add(resourceManager.getAllCards().get((String) obj));
+            }
+
+            deck.clear();
+            JSONArray deckArray = (JSONArray) jsonObject.get("deck");
+            for (Object obj : deckArray) {
+                deck.add(resourceManager.getAllCards().get((String) obj));
+            }
+        }else{
+            commander = new CardData();
+            commander.setMultiverseId((String) jsonObject.get("commander"));
+
+            hand.clear();
+            JSONArray handArray = (JSONArray) jsonObject.get("hand");
+            for (Object obj : handArray) {
+                CardData cardData = new CardData();
+                cardData.setMultiverseId((String) obj);
+                hand.add(cardData);
+            }
+
+            graveyard.clear();
+            JSONArray graveyardArray = (JSONArray) jsonObject.get("graveyard");
+            for (Object obj : graveyardArray) {
+                CardData cardData = new CardData();
+                cardData.setMultiverseId((String) obj);
+                graveyard.add(cardData);
+            }
+
+            deck.clear();
+            JSONArray deckArray = (JSONArray) jsonObject.get("deck");
+            for (Object obj : deckArray) {
+                CardData cardData = new CardData();
+                cardData.setMultiverseId((String) obj);
+                deck.add(cardData);
+            }
+        }
+
+        battlefield.clear();
+        JSONArray battlefieldArray = (JSONArray) jsonObject.get("battlefield");
+        for (Object obj : battlefieldArray) {
+            battlefield.add(CardEntity.getFromJSON((JSONObject) obj, resourceManager));
+        }
+
+        exile.clear();
+        JSONArray exileArray = (JSONArray) jsonObject.get("exile");
+        for (Object obj : exileArray) {
+            exile.add(CardEntity.getFromJSON((JSONObject) obj, resourceManager));
+        }
     }
 }

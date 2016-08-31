@@ -13,13 +13,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.ninthworld.magicfx.GameSettings;
-import org.ninthworld.magicfx.PacketHandler;
+import org.ninthworld.magicfx.*;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class ClientMain extends Application {
 
     private ResourceManager resourceManager;
 
+    private Stage primaryStage;
     private Scene scene;
     private BorderPane globalBorderPane;
     private GridPane globalGridPane, playGridPane, sideGridPane;
@@ -41,10 +43,12 @@ public class ClientMain extends Application {
 
     private GameSettings clientGameSettings;
     private ClientThread clientThread;
+    private ClientGameManager clientGameManager = null;
     //private Player mainPlayer;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/magicfx.fxml"));
         primaryStage.setTitle("MagicFX");
         double windowWidth = .8* Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -175,12 +179,36 @@ public class ClientMain extends Application {
         launch(args);
     }
 
+    public SplitPane getGlobalSplitTop(){
+        return globalSplitTop;
+    }
+
+    public SplitPane getGlobalSplitBottom(){
+        return globalSplitBottom;
+    }
+
+    public ClientThread getClientThread(){
+        return clientThread;
+    }
+
+    public GameSettings getClientGameSettings(){
+        return clientGameSettings;
+    }
+
+    public ResourceManager getResourceManager(){
+        return resourceManager;
+    }
+
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
+
     public void addChatMessage(String username, String message){
         String newText = chatTextArea.getText().concat("[" + username + "]: " + message + "\n");
         chatTextArea.setText(newText);
     }
 
-    public void updateLobby(JSONArray members, JSONObject gameSettings, String lobbyLeader){
+    public void updateLobby(JSONArray members, JSONObject gameSettings, String lobbyLeader, boolean gameRunning){
         gameFormatChoiceBox.getSelectionModel().select(((Long) gameSettings.get("gameFormat")).intValue());
         gameModeChoiceBox.getSelectionModel().select(((Long) gameSettings.get("gameMode")).intValue());
 
@@ -206,9 +234,21 @@ public class ClientMain extends Application {
         }else{
             gameFormatChoiceBox.setDisable(false);
             gameModeChoiceBox.setDisable(false);
-            gameStartBtn.setDisable(false);
-            gameEndBtn.setDisable(false);
+            gameStartBtn.setDisable(gameRunning);
+            gameEndBtn.setDisable(!gameRunning);
         }
+
+        gameStartBtn.setOnAction(e -> {
+            try {
+                PacketHandler.sendRequestStartGame(clientThread);
+            } catch(IOException e1) { }
+        });
+
+        gameEndBtn.setOnAction(e -> {
+            try {
+                PacketHandler.sendRequestEndGame(clientThread);
+            } catch(IOException e1) { }
+        });
 
         ArrayList<BorderPane> panes = new ArrayList<>();
         members.forEach(member -> {
@@ -216,6 +256,10 @@ public class ClientMain extends Application {
             BorderPane borderPane = new BorderPane();
             HBox hBox1 = new HBox();
             HBox hBox2 = new HBox();
+
+            if(((String) jsonObj.get("uuid")).equals(clientThread.getMember().getUUID())){
+                clientThread.getMember().setFromJSON(jsonObj);
+            }
 
             BorderPane statusPane = new BorderPane();
             ImageView statusImageView = new ImageView();
@@ -271,6 +315,9 @@ public class ClientMain extends Application {
                 } catch (IOException e1) { }
             });
 
+            if(((Long) gameSettings.get("gameMode")).intValue() == 0){
+                teamChoiceBox.setDisable(true);
+            }
             if(!clientThread.getMember().getUUID().equals((String) jsonObj.get("uuid"))){
                 spectatorCheckBox.setDisable(true);
                 teamChoiceBox.setDisable(true);
@@ -286,5 +333,71 @@ public class ClientMain extends Application {
         });
 
         connectedListView.getItems().setAll(panes);
+    }
+
+    public void updateGame(JSONArray players, boolean gameRunning){
+        if(gameRunning){
+            if(clientGameManager == null){
+                clientGameManager = new ClientGameManager(this, new Game());
+                updatePlayers(players);
+                clientGameManager.initGame();
+
+                for(Object obj : players) {
+                    JSONObject jsonObject = (JSONObject) obj;
+                    clientGameManager.getGame().getPlayers().get((String) jsonObject.get("uuid")).setFromJSON(jsonObject, resourceManager);
+                    clientGameManager.getPlayerAreas().get(clientGameManager.getGame().getPlayers().get((String) jsonObject.get("uuid"))).syncPanes(resourceManager);
+                    clientGameManager.getPlayerAreas().get(clientGameManager.getGame().getPlayers().get((String) jsonObject.get("uuid"))).initAreas(resourceManager);
+                }
+
+                if(clientGameManager.getPlayerAreas().containsKey(clientGameManager.getClientPlayer()) && clientGameManager.getClientPlayer().getDeckData() == null){
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setInitialDirectory(new File("C:\\Users\\NinthWorld\\IdeaProjects\\MagicFX"));
+                    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All Supported Formats", "*.dec; *.deck; *.jdeck"));
+                    File deckFile = fileChooser.showOpenDialog(primaryStage);
+                    //File deckFile = new File("EDH-Boros-Aurelia.jdeck");
+                    clientGameManager.getClientPlayer().setDeckData(DeckLoader.loadDeckFile(deckFile, resourceManager.getAllCards()));
+                    clientGameManager.getClientPlayer().initGame();
+                    clientGameManager.getPlayerAreas().get(clientGameManager.getClientPlayer()).getCommanderPane().getChildren().setAll(CardPane.createCardPane(new CardEntity(clientGameManager.getClientPlayer().getCommander()), resourceManager));
+                    clientGameManager.getPlayerAreas().get(clientGameManager.getClientPlayer()).updatePanes(resourceManager);
+
+                    try {
+                        PacketHandler.sendUpdatePlayer(clientThread, clientGameManager.getClientPlayer());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(clientGameManager.getClientPlayer() != null) {
+                    clientGameManager.getPlayerAreas().get(clientGameManager.getClientPlayer()).updatePaneActions(resourceManager, clientThread);
+                }
+            }else {
+                updatePlayers(players);
+            }
+        }else{
+            clientGameManager = null;
+            globalSplitTop.getItems().clear();
+            globalSplitBottom.getItems().clear();
+        }
+    }
+
+    public void updatePlayers(JSONArray players){
+        for(Object obj : players){
+            JSONObject jsonObject = (JSONObject) obj;
+            String UUID = (String) jsonObject.get("uuid");
+            if(!clientGameManager.getGame().getPlayers().containsKey(UUID)){
+                Player player = new Player();
+                player.setTeam(((Long) jsonObject.get("team")).intValue());
+                clientGameManager.getGame().getPlayers().put(UUID, player);
+            }
+
+            Player player = clientGameManager.getGame().getPlayers().get(UUID);
+
+            if(clientGameManager.getPlayerAreas().containsKey(player)){
+                if(!clientGameManager.getGame().getPlayers().containsKey(clientThread.getMember().getUUID()) || !clientGameManager.getGame().getPlayers().get(clientThread.getMember().getUUID()).equals(player)) {
+                    player.setFromJSON(jsonObject, resourceManager);
+                    clientGameManager.getPlayerAreas().get(player).syncPanes(resourceManager);
+                }
+            }
+        }
     }
 }
