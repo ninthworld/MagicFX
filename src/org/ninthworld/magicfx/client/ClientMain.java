@@ -351,7 +351,7 @@ public class ClientMain extends Application {
 
                 if(clientGameManager.getPlayerAreas().containsKey(clientGameManager.getClientPlayer()) && clientGameManager.getClientPlayer().getDeckData() == null){
                     FileChooser fileChooser = new FileChooser();
-                    fileChooser.setInitialDirectory(new File("C:\\Users\\NinthWorld\\IdeaProjects\\MagicFX"));
+                    fileChooser.setInitialDirectory(new File("C:\\"));
                     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All Supported Formats", "*.dec; *.deck; *.jdeck"));
                     File deckFile = fileChooser.showOpenDialog(primaryStage);
                     //File deckFile = new File("EDH-Boros-Aurelia.jdeck");
